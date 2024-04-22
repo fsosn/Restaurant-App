@@ -1,68 +1,132 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    /* Primary Colors */
+    --primary-light: #FEF2E6;
+    --primary-light-hover: #FEEBD9;
+    --primary-light-active: #FCD6B0;
+    --primary-normal: #F57C00;
+    --primary-normal-hover: #DD7000;
+    --primary-normal-active: #C46300;
+    --primary-dark: #B85D00;
+    --primary-dark-hover: #934A00;
+    --primary-dark-active: #6E3800;
+    --primary-darker: #562B00;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    /* Secondary Colors */
+    --secondary-light: #FFF4E6;
+    --secondary-light-hover: #FEEED9;
+    --secondary-light-active: #FEDBB0;
+    --secondary-normal: #FB8C00;
+    --secondary-normal-hover: #E27E00;
+    --secondary-normal-active: #C97000;
+    --secondary-dark: #BC6900;
+    --secondary-dark-hover: #975400;
+    --secondary-dark-active: #713F00;
+    --secondary-darker: #583100;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    /* Success Colors */
+    --success-light: #F0F5EB;
+    --success-light-hover: #E8F1E1;
+    --success-light-active: #D0E1C1;
+    --success-normal: #689F38;
+    --success-normal-hover: #5E8F32;
+    --success-normal-active: #537F2D;
+    --success-dark: #4E772A;
+    --success-dark-hover: #3E5F22;
+    --success-dark-active: #2F4819;
+    --success-darker: #243814;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+    /* Danger Colors */
+    --danger-light: #FEECEB;
+    --danger-light-hover: #FDE3E1;
+    --danger-light-active: #FCC5C1;
+    --danger-normal: #F44336;
+    --danger-normal-hover: #DC3C31;
+    --danger-normal-active: #C3362B;
+    --danger-dark: #B73229;
+    --danger-dark-hover: #922820;
+    --danger-dark-active: #6E1E18;
+    --danger-darker: #551713;
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    /* Warning Colors */
+    --warning-light: #FFF9EA;
+    --warning-light-hover: #FEF6E0;
+    --warning-light-active: #FEEBBE;
+    --warning-normal: #FBC02D;
+    --warning-normal-hover: #E2AD29;
+    --warning-normal-active: #C99A24;
+    --warning-dark: #BC9022;
+    --warning-dark-hover: #97731B;
+    --warning-dark-active: #715614;
+    --warning-darker: #584310;
+
+    /* Info Colors */
+    --info-light: #F3F6FF;
+    --info-light-hover: #EDF2FF;
+    --info-light-active: #D9E4FE;
+    --info-normal: #86A7FC;
+    --info-normal-hover: #7996E3;
+    --info-normal-active: #6B86CA;
+    --info-dark: #657DBD;
+    --info-dark-hover: #506497;
+    --info-dark-active: #3C4B71;
+    --info-darker: #2F3A58;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: normal;
+    letter-spacing: 0;
+    word-spacing: 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: normal;
+    letter-spacing: 0;
+    word-spacing: 0;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: normal;
+    letter-spacing: 0;
+    word-spacing: 0;
+}
+
+h4 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: normal;
+    letter-spacing: 0;
+    word-spacing: 0;
+}
+
+h5 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: normal;
+    letter-spacing: 0;
+    word-spacing: 0;
+}
+
+.productLabelText {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: normal;
+    letter-spacing: 0;
+    word-spacing: 0;
+}
+
+.playfairHeading {
+    font-family: 'Playfair Displayl', sans-serif;
+    font-weight: 600;
 }

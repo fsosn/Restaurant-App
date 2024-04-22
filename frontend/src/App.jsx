@@ -5,6 +5,7 @@ function App() {
   return (
     <>
       <div>
+          <h1 className={"playfair"}>Hello world!</h1>
       </div>
     </>
   )
