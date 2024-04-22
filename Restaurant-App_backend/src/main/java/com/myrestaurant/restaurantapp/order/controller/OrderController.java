@@ -33,5 +33,14 @@ public class OrderController {
     public Order createOrder(@RequestBody Order order) {
         return orderService.createOrder(order);
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable Long userId) {
+        List<Order> orders = orderService.getOrdersByUserId(userId);
+        if(orders.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(orders);
+    }
 }
 
