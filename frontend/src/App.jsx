@@ -1,11 +1,12 @@
 import './App.css'
+import MainPage from "./pages/MainPage.jsx";
 
 function App() {
 
   return (
     <>
       <div>
-          <h1 className={"playfair"}>Hello world!</h1>
+          <MainPage/>
       </div>
     </>
   )

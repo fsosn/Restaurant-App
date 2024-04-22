@@ -127,6 +127,12 @@ h5 {
 }
 
 .playfairHeading {
-    font-family: 'Playfair Displayl', sans-serif;
+    font-family: 'Playfair Display', sans-serif;
     font-weight: 600;
+}
+
+.container-fluid {
+    height: 100dvh;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
 }
