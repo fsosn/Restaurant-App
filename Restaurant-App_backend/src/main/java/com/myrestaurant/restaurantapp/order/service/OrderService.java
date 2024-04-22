@@ -27,4 +27,8 @@ public class OrderService {
     public Order createOrder(Order order) {
         return orderRepository.save(order);
     }
+
+    public List<Order> getOrdersByUserId(Long userId) {
+        return orderRepository.findByUser_UserID(userId);
+    }
 }

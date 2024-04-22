@@ -1,33 +1,3 @@
-// package com.myrestaurant.restaurantapp.order.model;
-
-// import jakarta.persistence.*;
-// import lombok.AllArgsConstructor;
-// import lombok.Builder;
-// import lombok.Data;
-// import lombok.NoArgsConstructor;
-
-// import java.time.LocalDate;
-
-// @Entity
-// @Table(name = "orders")
-// @Data
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// public class Order {
-
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     @Column(name = "order_id")
-//     private Long orderId;
-
-//     @Column(name = "user_id")
-//     private Long userId;
-
-//     @Column(name = "date")
-//     private LocalDate date;
-// }
-
 package com.myrestaurant.restaurantapp.order.model;
 
 import com.myrestaurant.restaurantapp.user.model.User;
@@ -39,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "orders")
@@ -57,6 +29,8 @@ public class Order {
 
     private LocalDate date;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderItem> orderItems;
+
 }

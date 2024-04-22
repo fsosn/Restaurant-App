@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "order_items")
 @Data
@@ -20,6 +22,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "orderID", referencedColumnName = "orderID")
+    @JsonBackReference
     private Order order;
 
     @ManyToOne
@@ -28,4 +31,3 @@ public class OrderItem {
 
     private Integer quantity;
 }
-
