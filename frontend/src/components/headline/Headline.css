@@ -1,0 +1,44 @@
+.headline-rectangle {
+    position: relative;
+    width: 100%;
+    background-color: var(--primary-normal);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.text-container {
+    transform: translateY(50px);
+    margin-right: 75px;
+}
+
+.text-container p {
+    white-space: nowrap;
+}
+
+.headline-image {
+    width: 350px;
+    height: 350px;
+    transform: translateY(50px);
+}
+
+.headline-text {
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-darker);
+}
+
+.headline-title {
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 24px;
+}
+
+.row{
+    width: max-content;
+    display: flex;
+    justify-content: center;
+}
