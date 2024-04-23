@@ -1,13 +1,13 @@
 .sidebar {
     position: fixed;
-    top: 0;
+    top: 60px;
     right: -250px;
     width: 250px;
     height: 100%;
-    background-color: var(--secondary-light);
+    background-color: white;
     transition: all 0.4s ease;
     z-index: 999;
-    border-left: 1px solid #ffe8d3;
+    border: 1px solid var(--secondary-darker);
 }
 
 .sidebar.open {
@@ -15,7 +15,6 @@
 }
 
 .links {
-    margin-top: 60px;
 }
 
 ul {
@@ -25,11 +24,12 @@ ul {
 
 li {
     padding: 16px;
-    background-color: var(--secondary-light);
-    border-bottom: 1px solid #ffe8d3;
+    background-color: white;
+    border-bottom: 1px solid var(--secondary-darker);
+    color: var(--primary-darker)
 }
 
 li:hover {
-    background-color: var(--secondary-light-hover);
-    cursor: pointer;
+    background-color: var(--secondary-normal-active);
+    color: var(--secondary-light)
 }

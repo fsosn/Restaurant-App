@@ -7,13 +7,13 @@ const Sidebar = ({isOpen}) => {
             <div className="links">
                 <ul>
                     <li>
-                        <h4>Link</h4>
+                        <h3>Link</h3>
                     </li>
                     <li>
-                        <h4>Link</h4>
+                        <h3>Link</h3>
                     </li>
                     <li>
-                        <h4>Link</h4>
+                        <h3>Link</h3>
                     </li>
                 </ul>
             </div>
