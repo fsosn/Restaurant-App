@@ -17,19 +17,21 @@
 .links {
 }
 
-ul {
+.links ul {
     list-style: none;
     padding: 0;
 }
 
-li {
+.links li {
     padding: 16px;
     background-color: white;
     border-bottom: 1px solid var(--secondary-darker);
-    color: var(--primary-darker)
+    color: var(--primary-darker);
+    font-size: 20px;
 }
 
-li:hover {
+.links li:hover {
     background-color: var(--secondary-normal-active);
-    color: var(--secondary-light)
+    color: var(--secondary-light);
+    cursor: pointer;
 }
