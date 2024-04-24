@@ -29,4 +29,40 @@ public class Product {
     private Integer calories;
 
     private String imageLink;
+
+    public Product(String name, String description, Double price, Integer calories) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.calories = calories;
+    }
+
+    // Getter methods
+    public Long getProductID() {
+        return productID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public List<Ingredients> getIngredients() {
+        return ingredients;
+    }
+
+    public Integer getCalories() {
+        return calories;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
 }

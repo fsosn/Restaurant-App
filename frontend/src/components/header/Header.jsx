@@ -4,6 +4,7 @@ import "./Header.css";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faBars, faCartShopping} from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../sidebar/Sidebar";
+import "../../../public/logo.svg"
 
 const Header = ({title}) => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -17,8 +18,8 @@ const Header = ({title}) => {
             <h1 className="pageTitle p-2">{title}</h1>
             <div className="icon-container">
                 <div>
-                    <FontAwesomeIcon icon={faCartShopping} className="icon cart-icon wrapper"/>
-                    <FontAwesomeIcon icon={faBars} className="icon wrapper" onClick={toggleSidebar}/>
+                    <FontAwesomeIcon icon={faCartShopping} className="icon"/>
+                    <FontAwesomeIcon icon={faBars} className="icon bars-wrapper" onClick={toggleSidebar}/>
                 </div>
             </div>
             <Sidebar isOpen={sidebarOpen} toggle={toggleSidebar}/>

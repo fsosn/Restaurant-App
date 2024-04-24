@@ -4,11 +4,12 @@
     align-items: center;
     padding-block: 10px;
     height: 60px;
+    border: 1px solid #ffe8d3;
     background-color: white;
 }
 
 .pageTitle {
-    font-family: 'Playfair Display', sans-serif;
+    font-family: 'Enriqueta', sans-serif;
     font-size: 36px;
     font-weight: 700;
     margin-left: 16px;
@@ -24,23 +25,19 @@
     transform: scaleX(-1);
     color: var(--primary-darker);
     margin-left: 48px;
-    transition: all 0.3s ease;
 }
 
 .icon:hover {
-    color: #bb6300;
+    color: #793f01;
     cursor: pointer;
-}
-
-.cart-icon:hover {
-    rotate: 8deg;
 }
 
 .icon-container {
     margin-right: 16px;
 }
 
-.wrapper {
+.bars-wrapper {
+    cursor: pointer;
     position: relative;
     z-index: 1000;
 }
