@@ -1,12 +1,12 @@
 import './App.css'
-import MainPage from "./pages/MainPage.jsx";
+import ProductsPage from "./pages/ProductsPage.jsx";
 
 function App() {
 
   return (
     <>
       <div>
-          <MainPage/>
+          <ProductsPage/>
       </div>
     </>
   )

@@ -132,6 +132,7 @@ h5 {
 }
 
 .container-fluid {
+    height: 100dvh;
     padding-right: 0 !important;
     padding-left: 0 !important;
 }
