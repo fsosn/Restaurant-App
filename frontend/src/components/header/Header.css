@@ -11,7 +11,7 @@
     font-family: 'Playfair Display', sans-serif;
     font-size: 36px;
     font-weight: 700;
-    margin-left: 16px;
+    padding-left: 16px;
 }
 
 .icons {
@@ -22,13 +22,13 @@
 .icon {
     height: 36px;
     transform: scaleX(-1);
-    color: var(--primary-darker);
+    color: black;
     margin-left: 48px;
     transition: all 0.3s ease;
 }
 
 .icon:hover {
-    color: #bb6300;
+    color: var(--primary-normal-hover);
     cursor: pointer;
 }
 

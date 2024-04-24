@@ -73,7 +73,7 @@
 }
 
 h1 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Playfair Display', sans-serif;
     font-weight: 400;
     font-size: 28px;
     line-height: normal;
@@ -82,7 +82,7 @@ h1 {
 }
 
 h2 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Playfair Display', sans-serif;
     font-weight: 400;
     font-size: 24px;
     line-height: normal;
@@ -91,7 +91,7 @@ h2 {
 }
 
 h3 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Playfair Display', sans-serif;
     font-weight: 400;
     font-size: 20px;
     line-height: normal;
@@ -100,7 +100,7 @@ h3 {
 }
 
 h4 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Playfair Display', sans-serif;
     font-weight: 400;
     font-size: 18px;
     line-height: normal;
@@ -109,7 +109,7 @@ h4 {
 }
 
 h5 {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Playfair Display', sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: normal;
@@ -126,12 +126,15 @@ h5 {
     word-spacing: 0;
 }
 
-.playfairHeading {
-    font-family: 'Playfair Display', sans-serif;
-    font-weight: 600;
-}
-
 .container-fluid {
     padding-right: 0 !important;
     padding-left: 0 !important;
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 18px;
 }

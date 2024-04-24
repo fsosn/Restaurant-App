@@ -14,7 +14,7 @@ const Header = ({title}) => {
 
     return (
         <div className="header bg">
-            <h1 className="pageTitle p-2">{title}</h1>
+            <h1 className="pageTitle">{title}</h1>
             <div className="icon-container">
                 <div>
                     <FontAwesomeIcon icon={faCartShopping} className="icon cart-icon wrapper"/>
