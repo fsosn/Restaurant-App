@@ -1,0 +1,57 @@
+.form-label {
+    font-size: 20px;
+}
+
+.sign-button-container {
+    padding-top: 16px;
+    padding-bottom: 8px;
+}
+
+.action-button {
+    background-color: var(--primary-normal);
+    color: var(--primary-light);
+}
+
+.action-button:hover {
+    background-color: var(--primary-normal-hover);
+    color: white;
+}
+
+.form-label {
+    font-size: 20px;
+    font-family: "Lato", sans-serif;
+}
+
+.form-label-extras {
+    font-size: 16px;
+}
+
+.href-color {
+    color: var(--info-normal);
+}
+
+.href-color:hover {
+    color: var(--info-normal-hover);
+}
+
+.card-header {
+    background-color: var(--primary-normal);
+    color: var(--primary-darker);
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.pageTitle {
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    padding-left: 16px;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
