@@ -26,7 +26,7 @@ const Menu = () => {
                                 </div>
                                 <div className={"cont"}>
                                     <div>
-                                        <p className={"price"}>${product.price}</p></div>
+                                        <p className={"price"}>${product.price.toFixed(2)}</p></div>
                                     <div>
                                         <button className={"btn-add"}>
                                             <img src="./add.svg" alt="Add icon"/>
