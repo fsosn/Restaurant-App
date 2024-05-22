@@ -21,7 +21,7 @@ public class ShoppingCart {
     private Long cartID;
 
     @ManyToOne
-    @JoinColumn(name = "userID", referencedColumnName = "userID")
+    @JoinColumn(name = "userID", referencedColumnName = "id")
     private User user;
 
     @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)

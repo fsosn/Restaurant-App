@@ -15,8 +15,10 @@ import com.myrestaurant.restaurantapp.shoppingCart.repository.ShoppingCartReposi
 import com.myrestaurant.restaurantapp.shoppingCart.cartItem.model.CartItem;
 import com.myrestaurant.restaurantapp.shoppingCart.cartItem.repository.CartItemRepository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -24,37 +26,34 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @Component
+@RequiredArgsConstructor
 public class DataLoader implements CommandLineRunner {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private OrderItemRepository orderItemRepository;
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ShoppingCartRepository shoppingCartRepository;
-    @Autowired
-    private CartItemRepository cartItemRepository;
+    private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
+    private final OrderItemRepository orderItemRepository;
+    private final ProductRepository productRepository;
+    private final ShoppingCartRepository shoppingCartRepository;
+    private final CartItemRepository cartItemRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         // Load Users
-        
-        User admin1 = new User(null, "Karol", "password1", Role.ADMIN);
-        User admin2 = new User(null, "Krzysztof", "password2", Role.ADMIN);
-        User admin3 = new User(null, "Filip", "password3", Role.ADMIN);
-        User admin4 = new User(null, "Bartłomiej", "password4", Role.ADMIN);
-        User admin5 = new User(null, "Kacper", "password5", Role.ADMIN);
-        User user1 = new User(null, "user1", "haslo1", Role.USER);
-        User user2 = new User(null, "user2", "haslo2", Role.USER);
-        User user3 = new User(null, "user3", "haslo3", Role.USER);
-        User user4 = new User(null, "user4", "haslo4", Role.USER);
-        User user5 = new User(null, "user5", "haslo5", Role.USER);
-    
-        userRepository.saveAll(Arrays.asList(admin1, admin2,admin3,admin4,admin5,user1, user2,user3,user4,user5));
+
+        User admin1 = new User("admin1@example.com", passwordEncoder.encode("Password1!"), "Admin1", "Lastname1", Role.ADMIN);
+        User admin2 = new User("admin2@example.com", passwordEncoder.encode("Password2!"), "Admin2", "Lastname2", Role.ADMIN);
+        User admin3 = new User("admin3@example.com", passwordEncoder.encode("Password3!"), "Admin3", "Lastname3", Role.ADMIN);
+        User admin4 = new User("admin4@example.com", passwordEncoder.encode("Password4!"), "Admin4", "Lastname4", Role.ADMIN);
+        User admin5 = new User("admin5@example.com", passwordEncoder.encode("Password5!"), "Admin5", "Lastname5", Role.ADMIN);
+
+        User user1 = new User("user1@example.com", passwordEncoder.encode("Userpass1!"), "User1", "UserLastName1", Role.USER);
+        User user2 = new User("user2@example.com", passwordEncoder.encode("Userpass2!"), "User2", "UserLastName2", Role.USER);
+        User user3 = new User("user3@example.com", passwordEncoder.encode("Userpass3!"), "User3", "UserLastName3", Role.USER);
+        User user4 = new User("user4@example.com", passwordEncoder.encode("Userpass4!"), "User4", "UserLastName4", Role.USER);
+        User user5 = new User("user5@example.com", passwordEncoder.encode("Userpass5!"), "User5", "UserLastName5", Role.USER);
+
+        userRepository.saveAll(Arrays.asList(admin1, admin2, admin3, admin4, admin5, user1, user2, user3, user4, user5));
 
         // Load Products
         Product product1 = new Product(null, "Margherita", "Our signature Margherita is a tribute to the classic Italian cuisine, with handmade tomato sauce, fresh mozzarella, and basil leaves from our garden.", 12.50, Arrays.asList(Ingredients.cheese, Ingredients.tomatoes, Ingredients.basil), 560, "link_to_image");
@@ -70,7 +69,7 @@ public class DataLoader implements CommandLineRunner {
         productRepository.saveAll(Arrays.asList(product1, product2,product3,product4,product5,product6, product7,product8,product9,product10));
 
 
-        
+
         // Load Orders
         Order order1 = new Order(null, user1, LocalDate.now(), Collections.emptyList());
         Order order2 = new Order(null, user2, LocalDate.now(), Collections.emptyList());
