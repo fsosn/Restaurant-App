@@ -1,4 +1,4 @@
-/*package com.myrestaurant.restaurantapp;
+package com.myrestaurant.restaurantapp;
 
 import com.myrestaurant.restaurantapp.user.model.Role;
 import com.myrestaurant.restaurantapp.user.model.User;
@@ -15,8 +15,10 @@ import com.myrestaurant.restaurantapp.shoppingCart.repository.ShoppingCartReposi
 import com.myrestaurant.restaurantapp.shoppingCart.cartItem.model.CartItem;
 import com.myrestaurant.restaurantapp.shoppingCart.cartItem.repository.CartItemRepository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -24,53 +26,50 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @Component
+@RequiredArgsConstructor
 public class DataLoader implements CommandLineRunner {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
-    private OrderItemRepository orderItemRepository;
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ShoppingCartRepository shoppingCartRepository;
-    @Autowired
-    private CartItemRepository cartItemRepository;
+    private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
+    private final OrderItemRepository orderItemRepository;
+    private final ProductRepository productRepository;
+    private final ShoppingCartRepository shoppingCartRepository;
+    private final CartItemRepository cartItemRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         // Load Users
-        
-        User admin1 = new User(null, "Karol", "password1", Role.ADMIN);
-        User admin2 = new User(null, "Krzysztof", "password2", Role.ADMIN);
-        User admin3 = new User(null, "Filip", "password3", Role.ADMIN);
-        User admin4 = new User(null, "Bartłomiej", "password4", Role.ADMIN);
-        User admin5 = new User(null, "Kacper", "password5", Role.ADMIN);
-        User user1 = new User(null, "user1", "haslo1", Role.USER);
-        User user2 = new User(null, "user2", "haslo2", Role.USER);
-        User user3 = new User(null, "user3", "haslo3", Role.USER);
-        User user4 = new User(null, "user4", "haslo4", Role.USER);
-        User user5 = new User(null, "user5", "haslo5", Role.USER);
-    
-        userRepository.saveAll(Arrays.asList(admin1, admin2,admin3,admin4,admin5,user1, user2,user3,user4,user5));
+
+        User admin1 = new User("admin1@example.com", passwordEncoder.encode("Password1!"), "Admin1", "Lastname1", Role.ADMIN);
+        User admin2 = new User("admin2@example.com", passwordEncoder.encode("Password2!"), "Admin2", "Lastname2", Role.ADMIN);
+        User admin3 = new User("admin3@example.com", passwordEncoder.encode("Password3!"), "Admin3", "Lastname3", Role.ADMIN);
+        User admin4 = new User("admin4@example.com", passwordEncoder.encode("Password4!"), "Admin4", "Lastname4", Role.ADMIN);
+        User admin5 = new User("admin5@example.com", passwordEncoder.encode("Password5!"), "Admin5", "Lastname5", Role.ADMIN);
+
+        User user1 = new User("user1@example.com", passwordEncoder.encode("Userpass1!"), "User1", "UserLastName1", Role.USER);
+        User user2 = new User("user2@example.com", passwordEncoder.encode("Userpass2!"), "User2", "UserLastName2", Role.USER);
+        User user3 = new User("user3@example.com", passwordEncoder.encode("Userpass3!"), "User3", "UserLastName3", Role.USER);
+        User user4 = new User("user4@example.com", passwordEncoder.encode("Userpass4!"), "User4", "UserLastName4", Role.USER);
+        User user5 = new User("user5@example.com", passwordEncoder.encode("Userpass5!"), "User5", "UserLastName5", Role.USER);
+
+        userRepository.saveAll(Arrays.asList(admin1, admin2, admin3, admin4, admin5, user1, user2, user3, user4, user5));
 
         // Load Products
-        Product product1 = new Product(null, "Margherita Pizza", "Nasza sygnaturowa Margherita to hołd dla klasycznej włoskiej kuchni, z ręcznie robionym sosem pomidorowym, świeżą mozzarellą i listkami bazylii z naszego ogrodu.", 12.50, Arrays.asList(Ingredients.cheese, Ingredients.tomatoes, Ingredients.basil), 560, "link_to_image");
-        Product product2 = new Product(null, "Pepperoni Pizza", "Soczyste plastry pepperoni, przyprawione wyselekcjonowanymi ziołami, na puszystym cieście z dodatkiem bogatej mozzarelli, idealne dla miłośników ostrzejszych smaków.", 14.95, Arrays.asList(Ingredients.cheese, Ingredients.pepperoni), 620, "link_to_image");
-        Product product3 = new Product(null, "Hawaiian Pizza", "Egzotyczne połączenie słodkich kawałków ananasa i aromatycznej szynki na cienkim cieście tworzy niezapomniane doznania dla tych, którzy lubią połączenie słodko-słonych smaków.", 15.75, Arrays.asList(Ingredients.cheese, Ingredients.ham, Ingredients.pineapple), 540, "link_to_image");
-        Product product4 = new Product(null, "Meat Lovers Pizza", "Nasza pizza dla miłośników mięsa to prawdziwa uczta: kombinacja pepperoni, włoskiej kiełbasy, bekonu i szynki na bogatym sosie pomidorowym.", 17.90, Arrays.asList(Ingredients.cheese, Ingredients.pepperoni, Ingredients.sausage, Ingredients.bacon, Ingredients.ham), 720, "link_to_image");
-        Product product5 = new Product(null, "Veggie Pizza", "Pełna świeżych, sezonowych warzyw z lokalnych upraw, ta pizza zachwyci każdego, kto ceni sobie lekkość i świeżość składników.", 13.50, Arrays.asList(Ingredients.cheese, Ingredients.tomatoes, Ingredients.olives, Ingredients.mushrooms, Ingredients.onions, Ingredients.pepper), 430, "link_to_image");
-        Product product6 = new Product(null, "BBQ Chicken Pizza", "Kawałki grillowanego kurczaka marynowanego w domowym sosie BBQ, z dodatkiem czerwonej cebuli i świeżej kolendry, tworzą wyrazisty i niezapomniany smak.", 16.20, Arrays.asList(Ingredients.cheese, Ingredients.chicken, Ingredients.bbq_sauce, Ingredients.onions), 580, "link_to_image");
-        Product product7 = new Product(null, "Buffalo Chicken Pizza", "Pikantny sos buffalo i kawałki kurczaka, podkreślone sosem z niebieskiego sera, sprawiają, że ta pizza jest idealna dla poszukiwaczy silnych wrażeń smakowych.", 16.00, Arrays.asList(Ingredients.cheese, Ingredients.chicken, Ingredients.buffalo_sauce, Ingredients.onions), 600, "link_to_image");
-        Product product8 = new Product(null, "Seafood Pizza", "Świeże owoce morza, w tym krewetki, kałamarnica i małże, na cienkim i chrupiącym cieście, z delikatnym sosem czosnkowym, idealna dla smakoszy morskich przysmaków.", 18.45, Arrays.asList(Ingredients.cheese, Ingredients.seafood), 510, "link_to_image");
-        Product product9 = new Product(null, "Four Cheese Pizza", "Kremowa mieszanka czterech serów: mozzarelli, parmezanu, gorgonzoli i ricotty, rozpływa się w ustach, dostarczając bogatego i głębokiego smaku.", 14.00, Arrays.asList(Ingredients.mozzarella, Ingredients.parmesan, Ingredients.gorgonzola, Ingredients.ricotta), 480, "link_to_image");
-        Product product10 = new Product(null, "Mushroom Truffle Pizza", "Nasza luksusowa pizza z dodatkiem aromatycznych pieczarek i oleju truflowego to prawdziwy przysmak dla koneserów nietuzinkowych kombinacji.", 19.30, Arrays.asList(Ingredients.cheese, Ingredients.mushrooms, Ingredients.truffle_oil), 450, "link_to_image");
+        Product product1 = new Product(null, "Margherita", "Our signature Margherita is a tribute to the classic Italian cuisine, with handmade tomato sauce, fresh mozzarella, and basil leaves from our garden.", 12.50, Arrays.asList(Ingredients.cheese, Ingredients.tomatoes, Ingredients.basil), 560, "link_to_image");
+        Product product2 = new Product(null, "Pepperoni", "Juicy pepperoni slices seasoned with selected herbs, on fluffy dough with rich mozzarella, perfect for lovers of spicier flavors.", 14.95, Arrays.asList(Ingredients.cheese, Ingredients.pepperoni), 620, "link_to_image");
+        Product product3 = new Product(null, "Hawaiian", "An exotic combination of sweet pineapple chunks and aromatic ham on thin crust creates unforgettable experiences for those who enjoy the blend of sweet and salty flavors.", 15.75, Arrays.asList(Ingredients.cheese, Ingredients.ham, Ingredients.pineapple), 540, "link_to_image");
+        Product product4 = new Product(null, "Meat Lovers", "Our pizza for meat lovers is a real feast: a combination of pepperoni, Italian sausage, bacon, and ham on a rich tomato sauce.", 17.90, Arrays.asList(Ingredients.cheese, Ingredients.pepperoni, Ingredients.sausage, Ingredients.bacon, Ingredients.ham), 720, "link_to_image");
+        Product product5 = new Product(null, "Veggie", "Filled with fresh, seasonal vegetables from local farms, this pizza will delight anyone who appreciates the lightness and freshness of ingredients.", 13.50, Arrays.asList(Ingredients.cheese, Ingredients.tomatoes, Ingredients.olives, Ingredients.mushrooms, Ingredients.onions, Ingredients.pepper), 430, "link_to_image");
+        Product product6 = new Product(null, "BBQ Chicken", "Chunks of grilled chicken marinated in homemade BBQ sauce, with added red onions and fresh cilantro, create a bold and unforgettable flavor.", 16.20, Arrays.asList(Ingredients.cheese, Ingredients.chicken, Ingredients.bbq_sauce, Ingredients.onions), 580, "link_to_image");
+        Product product7 = new Product(null, "Buffalo Chicken", "Spicy buffalo sauce and chicken chunks, enhanced with blue cheese sauce, make this pizza perfect for those seeking strong flavor experiences.", 16.00, Arrays.asList(Ingredients.cheese, Ingredients.chicken, Ingredients.buffalo_sauce, Ingredients.onions), 600, "link_to_image");
+        Product product8 = new Product(null, "Seafood", "Fresh seafood, including shrimp, calamari, and mussels, on thin and crispy crust, with a delicate garlic sauce, perfect for seafood connoisseurs.", 18.45, Arrays.asList(Ingredients.cheese, Ingredients.seafood), 510, "link_to_image");
+        Product product9 = new Product(null, "Four Cheese", "A creamy blend of four cheeses: mozzarella, parmesan, gorgonzola, and ricotta, melts in the mouth, delivering a rich and deep flavor.", 14.00, Arrays.asList(Ingredients.mozzarella, Ingredients.parmesan, Ingredients.gorgonzola, Ingredients.ricotta), 480, "link_to_image");
+        Product product10 = new Product(null, "Mushroom Truffle", "Our luxurious pizza with aromatic mushrooms and truffle oil is a real treat for connoisseurs of extraordinary combinations.", 19.30, Arrays.asList(Ingredients.cheese, Ingredients.mushrooms, Ingredients.truffle_oil), 450, "link_to_image");
         productRepository.saveAll(Arrays.asList(product1, product2,product3,product4,product5,product6, product7,product8,product9,product10));
 
 
-        
+
         // Load Orders
         Order order1 = new Order(null, user1, LocalDate.now(), Collections.emptyList());
         Order order2 = new Order(null, user2, LocalDate.now(), Collections.emptyList());
@@ -151,4 +150,3 @@ public class DataLoader implements CommandLineRunner {
         shoppingCartRepository.save(shoppingCart5);
     }
 }
-*/

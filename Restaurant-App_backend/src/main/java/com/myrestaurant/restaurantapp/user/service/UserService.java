@@ -31,7 +31,7 @@ public class UserService {
     public User updateUser(Long userID, User userDetails) {
         User user = userRepository.findById(userID)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userID));
-        user.setUsername(userDetails.getUsername());
+        user.setEmail(userDetails.getUsername());
         user.setPassword(userDetails.getPassword());
         user.setRole(userDetails.getRole());
         return userRepository.save(user);
