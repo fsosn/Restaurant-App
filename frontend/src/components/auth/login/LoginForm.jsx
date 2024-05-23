@@ -1,12 +1,12 @@
 import '../AuthForm.css';
 import {useContext, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
-// import {AuthContext} from '../../../auth/AuthContext.js';
-// import validate from '../utils/validate.js';
+import {AuthContext} from '../../../auth/AuthContext.jsx';
+import validate from '../utils/validate.jsx';
 
 const LoginForm = () => {
-    // const navigate = useNavigate();
-    // const auth = useContext(AuthContext);
+    const navigate = useNavigate();
+    const auth = useContext(AuthContext);
     const location = useLocation();
     const [, setPassword] = useState('');
 
@@ -17,19 +17,19 @@ const LoginForm = () => {
         setPassword(newPassword);
     };
 
-    // function handleSubmit(event) {
-    //     event.preventDefault();
-    //
-    //     const formData = new FormData(event.currentTarget);
-    //     const username = formData.get('email');
-    //     const password = formData.get('password');
-    //
-    //     if (validate(password)) {
-    //         auth.signIn(username, password, () => {
-    //             navigate(from, {replace: true});
-    //         });
-    //     }
-    // }
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.currentTarget);
+        const username = formData.get('email');
+        const password = formData.get('password');
+
+        if (validate(password)) {
+            auth.signIn(username, password, () => {
+                navigate(from, {replace: true});
+            });
+        }
+    }
 
     return (
         <div className="container">
@@ -39,7 +39,7 @@ const LoginForm = () => {
                         <span>Sign In</span>
                     </div>
                     <div className="card-body">
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <label htmlFor="email" className="form-label">
                                     E-mail:
@@ -49,6 +49,7 @@ const LoginForm = () => {
                                     type="email"
                                     className="form-control"
                                     id="email"
+                                    placeholder="E-mail"
                                 />
                             </div>
                             <div className="mb-3">
@@ -60,16 +61,10 @@ const LoginForm = () => {
                                     type="password"
                                     className="form-control"
                                     id="password"
+                                    placeholder="Password"
                                     onChange={handlePasswordChange}
                                 />
-                                <div>
-                                    <Link to="/forgot-password"
-                                          className="text-decoration-none href-color form-label-extras">
-                                        Forgot password?
-                                    </Link>
-                                </div>
                             </div>
-
                             <div className="text-center sign-button-container">
                                 <button
                                     type="submit"

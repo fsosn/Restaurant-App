@@ -6,13 +6,13 @@ import com.myrestaurant.restaurantapp.security.auth.request.ChangePasswordReques
 import com.myrestaurant.restaurantapp.security.auth.response.RegisterResponse;
 import com.myrestaurant.restaurantapp.security.auth.response.AuthenticationResponse;
 import com.myrestaurant.restaurantapp.security.auth.response.ChangePasswordResponse;
+import com.myrestaurant.restaurantapp.security.auth.response.RoleResponse;
 import com.myrestaurant.restaurantapp.security.auth.validation.AuthValidationUtil;
 import com.myrestaurant.restaurantapp.security.jwt.JwtService;
 import com.myrestaurant.restaurantapp.user.exception.UserAlreadyRegisteredException;
 import com.myrestaurant.restaurantapp.user.model.Role;
 import com.myrestaurant.restaurantapp.user.model.User;
 import com.myrestaurant.restaurantapp.user.repository.UserRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -73,8 +73,7 @@ public class AuthenticationService {
         }
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request, HttpServletRequest httpServletRequest) {
-        String ipAddress = null;
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
         try {
             validation.validateLoginData(
                     request.getEmail(),
@@ -146,7 +145,14 @@ public class AuthenticationService {
                     .success(false)
                     .build();
         }
+    }
 
+    public RoleResponse getRole(String jwt){
+        String role = jwtService.extractUserRole(jwt.substring(7));
+
+        return RoleResponse.builder()
+                .role(role)
+                .build();
     }
 
     private String getCurrentUserEmail() {
