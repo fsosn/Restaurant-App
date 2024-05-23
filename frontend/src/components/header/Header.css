@@ -5,6 +5,7 @@
     padding-block: 10px;
     height: 60px;
     background-color: white;
+    border-bottom: 1px solid var(--primary-darker);
 }
 
 .pageTitle {

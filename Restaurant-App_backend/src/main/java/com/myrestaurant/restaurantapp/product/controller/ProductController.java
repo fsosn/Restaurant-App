@@ -3,6 +3,7 @@ package com.myrestaurant.restaurantapp.product.controller;
 import com.myrestaurant.restaurantapp.product.model.Product;
 import com.myrestaurant.restaurantapp.product.service.ProductService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +19,13 @@ public class ProductController {
     }
 
     @GetMapping
+    @PreAuthorize("permitAll()")
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
     @GetMapping("/{productID}")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<Product> getProductById(@PathVariable Long productID) {
         return productService.getProductById(productID)
                 .map(ResponseEntity::ok)
@@ -30,11 +33,13 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Product createProduct(@RequestBody Product product) {
         return productService.createProduct(product);
     }
 
     @PutMapping("/{productID}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Product> updateProduct(@PathVariable Long productID, @RequestBody Product productDetails) {
         try {
             Product updatedProduct = productService.updateProduct(productID, productDetails);
@@ -45,6 +50,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{productID}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteProduct(@PathVariable Long productID) {
         productService.deleteProduct(productID);
         return ResponseEntity.ok().build();

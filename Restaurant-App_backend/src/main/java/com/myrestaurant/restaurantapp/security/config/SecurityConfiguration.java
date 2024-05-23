@@ -36,7 +36,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers("/index.html", "/static/**",
-                                        "/*.ico", "/*.json", "/*.png", "/api/auth/**")
+                                        "/*.ico", "/*.json", "/*.png", "/api/auth/**", "/products")
                                 .permitAll()
                                 .anyRequest().authenticated()
                 )

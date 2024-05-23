@@ -6,8 +6,8 @@ import com.myrestaurant.restaurantapp.security.auth.request.RegisterRequest;
 import com.myrestaurant.restaurantapp.security.auth.response.AuthenticationResponse;
 import com.myrestaurant.restaurantapp.security.auth.response.ChangePasswordResponse;
 import com.myrestaurant.restaurantapp.security.auth.response.RegisterResponse;
+import com.myrestaurant.restaurantapp.security.auth.response.RoleResponse;
 import com.myrestaurant.restaurantapp.security.auth.service.AuthenticationService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +26,17 @@ public class AuthenticationController {
 
     @PostMapping("${api.auth.authenticate}")
     public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request,
-            HttpServletRequest httpServletRequest) {
-        return ResponseEntity.ok(authenticationService.authenticate(request, httpServletRequest));
+            @RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
     @PostMapping("${api.auth.change}")
     public ResponseEntity<ChangePasswordResponse> changePassword(@RequestBody ChangePasswordRequest request) {
         return ResponseEntity.ok(authenticationService.changePassword(request));
+    }
+
+    @GetMapping("${api.auth.get-role}")
+    public ResponseEntity<RoleResponse> getRole(@RequestHeader("Authorization") String jwt) {
+        return ResponseEntity.ok(authenticationService.getRole(jwt));
     }
 }
