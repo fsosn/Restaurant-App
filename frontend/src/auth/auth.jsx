@@ -1,9 +1,10 @@
-import {API_ENDPOINTS} from "../config/config.jsx";
+import { API_ENDPOINTS } from "../config/config.jsx";
 import axios from 'axios';
 
 const auth = {
     isAuthenticated: false,
     role: null,
+    userId: null,
 
     signIn: async (email, password, callback) => {
         try {
@@ -19,8 +20,8 @@ const auth = {
             );
             if (authResponse.data.success === false) {
                 alert(authResponse.data.message);
-                window.location.reload()
-                return
+                window.location.reload();
+                return;
             }
 
             const token = authResponse.data.token;
@@ -34,24 +35,28 @@ const auth = {
             );
 
             const role = getRoleResponse.data.role;
+            const userId = getRoleResponse.data.userId;
             auth.isAuthenticated = true;
             auth.role = role;
-
-            console.log(auth.role)
-            callback();
+            auth.userId = userId;
+            console.log("Role: ", role);
+            console.log("UserId: ", auth.userId);
+            console.log("Token: ", token);
+            callback({ userId, token });
         } catch (e) {
             alert("Authentication failed");
             console.error("Authentication failed: ", e);
-            window.location.reload()
+            window.location.reload();
         }
     },
     signOut: (callback) => {
         let token = null;
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         auth.isAuthenticated = false;
-        window.location.reload()
+        auth.userId = null;
+        window.location.reload();
         callback();
     }
 };
 
-export {auth};
+export { auth };

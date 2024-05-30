@@ -79,22 +79,23 @@ public class AuthenticationService {
                     request.getEmail(),
                     request.getPassword()
             );
-
+    
             var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-
+    
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             request.getEmail(),
                             request.getPassword())
             );
-
+    
             userRepository.save(user);
             var token = jwtService.generateToken(user);
-
+    
             return AuthenticationResponse.builder()
                     .token(token)
                     .message("Successfully authenticated user.")
                     .success(true)
+                    .userId(user.getId())
                     .build();
         } catch (BadCredentialsException e) {
             return AuthenticationResponse.builder()
@@ -109,6 +110,7 @@ public class AuthenticationService {
                     .build();
         }
     }
+    
 
     public ChangePasswordResponse changePassword(ChangePasswordRequest request) {
         try {
@@ -147,13 +149,16 @@ public class AuthenticationService {
         }
     }
 
-    public RoleResponse getRole(String jwt){
+    public RoleResponse getRole(String jwt) {
         String role = jwtService.extractUserRole(jwt.substring(7));
+        Long userId = jwtService.extractUserId(jwt.substring(7)); // Pobieranie userId
 
         return RoleResponse.builder()
                 .role(role)
+                .userId(userId) // Dodanie userId do odpowiedzi
                 .build();
     }
+
 
     private String getCurrentUserEmail() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder
