@@ -5,5 +5,7 @@ export const API_ENDPOINTS = {
     AUTHENTICATE: "/authenticate",
     REGISTER: "/register",
     CHANGE_PASSWORD: "/change-password",
-    GET_ROLE: "/get-role"
+    GET_ROLE: "/get-role",
+    ORDERS: "/orders",
+    USER: "/user",
 };

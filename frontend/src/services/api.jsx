@@ -27,6 +27,30 @@ const api = {
             throw error;
         }
     },
+
+    getOrdersByUserId: async (userId, token) => {
+        try {
+            const response = await axios.get(
+                API_ENDPOINTS.BASE_URL +
+                API_ENDPOINTS.ORDERS +
+                API_ENDPOINTS.USER + 
+                '/' + 
+                userId,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            handleErrors(response);
+
+            return response.data;
+        } catch (error) {
+            console.error('Error during fetching orders by userId:', error);
+            throw error;
+        }
+    }
 };
 
 export default api;
