@@ -75,7 +75,7 @@ const Sidebar = ({isOpen}) => {
                             <FontAwesomeIcon icon={faPizzaSlice} className={"sidebar-icon"}/>
                             <span>Products</span>
                         </li>
-                        <li onClick={() => navigate("/orders")}>
+                        <li onClick={() => navigate("/order-history")}>
                             <FontAwesomeIcon icon={faTruck} className={"sidebar-icon"}/>
                             <span>Orders</span>
                         </li>

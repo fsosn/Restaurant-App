@@ -50,6 +50,26 @@ const api = {
             console.error('Error during fetching orders by userId:', error);
             throw error;
         }
+    },
+
+    getAllOrders: async (token) => {
+        try {
+            const response = await axios.get(
+                `${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.ORDERS}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            handleErrors(response);
+
+            return response.data;
+        } catch (error) {
+            console.error('Error during fetching all orders:', error);
+            throw error;
+        }
     }
 };
 
