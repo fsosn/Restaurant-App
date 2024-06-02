@@ -1,0 +1,84 @@
+.checkout-container-box {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff8e1;
+  }
+  
+  .order-type-buttons {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    grid-column: span 2;
+    color: orange;
+    font-weight: bold;
+  }
+  
+  .order-type-buttons button {
+    background-color: #fff;
+    color: #F8991D;
+    border: 1px solid #F8991D;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  
+  .order-type-buttons button.active {
+    background-color: #F8991D;
+    color: #fff;
+  }
+  
+  .details-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: Black;
+  }
+
+  .buttons-box {
+    display: flex;
+    flex-direction: column;
+    width: min(40%,400px);
+    margin-left: 20px;
+  }
+  
+  .buttons-box .payment-type-button {
+    background-color: #fcd6b0;
+    color: black;
+    border: 1px solid #b85d00;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-top: -40px;
+  }
+
+  .buttons-box .order-button {
+    background-color: #f57c00;
+    color: #fef2e6;
+    border: 1px solid #b85d00;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+  .payment-type-button-sign {
+    float: right;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .buttons-box .order-button:hover {
+    background-color: #d06900;
+  }
+  
+  .buttons-box .payment-type-button:hover {
+    background-color:   #efc7ab;
+  }
