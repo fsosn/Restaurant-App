@@ -70,6 +70,27 @@ const api = {
             console.error('Error during fetching all orders:', error);
             throw error;
         }
+    },
+
+    processTransaction: async (transactionData, token) => {
+        try {
+            const response = await axios.post(
+                `${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.API}${API_ENDPOINTS.TRANSACTION}`,
+                transactionData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            handleErrors(response);
+
+            return response;
+        } catch (error) {
+            console.error('Error during processing transaction:', error);
+            throw error;
+        }
     }
 };
 
