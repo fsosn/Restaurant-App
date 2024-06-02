@@ -1,0 +1,65 @@
+   .cart-summary-box {
+    margin-top: 20px;
+    border: 2px solid black;
+    padding: 10px;
+    background-color: none;
+    height: fit-content;
+    border-radius: 4px;
+  }
+  
+  .cart-summary-inner-box {
+    border: 2px solid darkorange;
+    padding: 5px;
+    border-radius: 4px;
+  }
+  
+  .cart-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .cart-summary-header span {
+    color: #333;
+    font-size: 18px;
+    color: black;
+    margin-bottom: 10px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .quantity-controls button {
+    background-color: #f57c00;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .cart-summary-details {
+    margin-top: 10px;
+  }
+  
+  .cart-summary-details p {
+    margin: 5px 0;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .cart-summary-details .total-cost {
+    font-weight: bold;
+  }

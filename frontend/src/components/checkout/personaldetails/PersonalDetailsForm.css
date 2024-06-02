@@ -1,0 +1,42 @@
+.personal-details {
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: none
+}
+
+.personal-details h2 {
+    color: black;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.personal-details label {
+    display: block;
+    margin-top: 10px;
+    color: #333;
+}
+
+.personal-details input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #F8991D;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.personal-details input:focus {
+    border-color: darkorange;
+    outline: none;
+}
+
+.personal-details .row {
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}

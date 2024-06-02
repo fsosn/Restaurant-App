@@ -1,0 +1,41 @@
+.delivery-details {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: none;
+}
+
+.delivery-details h2 {
+  color: black;
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.delivery-details label {
+  display: block;
+  margin-top: 10px;
+  color: #333;
+}
+
+.delivery-details input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid orange;
+  border-radius: 4px;
+}
+
+.delivery-details input:focus {
+  border-color: darkorange; 
+  outline: none;
+}
+
+.delivery-details .row {
+  width: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
