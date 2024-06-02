@@ -3,7 +3,6 @@
     grid-template-columns: 2fr 1fr;
     gap: 20px;
     padding: 20px;
-    background-color: #fff8e1;
   }
   
   .order-type-buttons {
@@ -83,11 +82,18 @@
     border-radius: 4px;
     margin-top: 10px;
   }
-  
-  .buttons-box .order-button:hover {
-    background-color: #d06900;
+
+  .buttons-box .order-button:disabled {
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+    border: 1px solid #a0a0a0;
+    color: #a0a0a0;
   }
-  
+
+  .buttons-box .order-button:enabled:hover {
+    background-color:   #d06900;
+  }
+
   .buttons-box .payment-type-button:hover {
     background-color:   #efc7ab;
   }
