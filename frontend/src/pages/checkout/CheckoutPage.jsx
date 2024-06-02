@@ -6,6 +6,8 @@ import PersonalDetailsForm from '../../components/checkout/personaldetails/Perso
 import CartSummary from '../../components/checkout/cartsummary/CartSummary.jsx';
 import api from '../../services/api.jsx';
 import { AuthContext } from '../../auth/AuthContext.jsx';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 const CheckoutPage = () => {
   const auth = useContext(AuthContext);
@@ -131,10 +133,20 @@ const CheckoutPage = () => {
         <div>
           <CartSummary onTotalCostChange={handleTotalCostChange} />
         </div>
-        <div className="buttons-box">
-          <button className='payment-type-button'>Choose payment method</button>
+        {/* <div className="buttons-box">
+          <button className='payment-type-button'>Choose payment method <img src={"./payment-type.svg"} alt={"payment type image"} className='payment-type-icon'/></button>
           <button className='order-button' onClick={handleSubmit}>Order and pay (${totalCost})</button>
+        </div> */}
+        <div className="buttons-box">
+          <button className='payment-type-button'>
+            Choose payment method <i className="fa fa-credit-card" aria-hidden="true"></i>
+          </button>
+          <button className='order-button' onClick={handleSubmit}>
+            Order and pay (${totalCost}) <i className="fa fa-money-bill-wave" aria-hidden="true"></i>
+          </button>
         </div>
+
+
       </div>
     </Page>
   );

@@ -49,7 +49,7 @@ const Sidebar = ({isOpen}) => {
                             <FontAwesomeIcon icon={faClockRotateLeft} className={"sidebar-icon"}/>
                             <span>Order history</span>
                         </li>
-                        <li onClick={() => navigate("/account")}>
+                        <li onClick={() => navigate("/checkout")}>
                             <FontAwesomeIcon icon={faUser} className={"sidebar-icon"}/>
                             <span>Account</span>
                         </li>
@@ -79,7 +79,7 @@ const Sidebar = ({isOpen}) => {
                             <FontAwesomeIcon icon={faTruck} className={"sidebar-icon"}/>
                             <span>Orders</span>
                         </li>
-                        <li onClick={() => navigate("/account")}>
+                        <li onClick={() => navigate("/checkout")}>
                             <FontAwesomeIcon icon={faUser} className={"sidebar-icon"}/>
                             <span>Account</span>
                         </li>
