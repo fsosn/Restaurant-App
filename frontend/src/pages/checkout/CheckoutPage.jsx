@@ -4,16 +4,19 @@ import './CheckoutPage.css';
 import DeliveryDetailsForm from '../../components/checkout/deliverydetails/DeliveryDetailsForm.jsx';
 import PersonalDetailsForm from '../../components/checkout/personaldetails/PersonalDetailsForm.jsx';
 import CartSummary from '../../components/checkout/cartsummary/CartSummary.jsx';
+import PaymentMethod from '../../components/checkout/paymentMethod/PaymentMethod.jsx';
 import api from '../../services/api.jsx';
 import { AuthContext } from '../../auth/AuthContext.jsx';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import orderPayIcon from '../../assets/order-pay.svg';
+import paymentTypeIcon from '../../assets/payment-type.svg';
 
 const CheckoutPage = () => {
   const auth = useContext(AuthContext);
   const [orderType, setOrderType] = useState('takeaway'); // Default to takeaway
   const [totalCost, setTotalCost] = useState('11.99'); // Initial total cost
   const [errors, setErrors] = useState({});
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 
   const handleTotalCostChange = (newTotalCost) => {
     setTotalCost(newTotalCost);
@@ -81,7 +84,8 @@ const CheckoutPage = () => {
       email,
       phoneNumber,
       totalCost: parseFloat(totalCost),
-      orderType
+      orderType,
+      paymentMethod: selectedPaymentMethod
     };
 
     if (orderType === 'delivery') {
@@ -111,6 +115,18 @@ const CheckoutPage = () => {
     }
   };
 
+  const handleChoosePaymentMethod = () => {
+    setShowPaymentModal(true);
+  };
+
+  const handleClosePaymentModal = () => {
+    setShowPaymentModal(false);
+  };
+
+  const handlePaymentMethodChange = (method) => {
+    setSelectedPaymentMethod(method);
+  };
+
   let title = "MarioLuigi";
   return (
     <Page pageTitle={title}>
@@ -131,27 +147,26 @@ const CheckoutPage = () => {
           <div className="personal-details-box"><PersonalDetailsForm errors={errors} /></div>
         </div>
         <div>
-          <CartSummary onTotalCostChange={handleTotalCostChange} />
+          <CartSummary orderType={orderType} onTotalCostChange={handleTotalCostChange} />
         </div>
-        {/* <div className="buttons-box">
-          <button className='payment-type-button'>Choose payment method <img src={"./payment-type.svg"} alt={"payment type image"} className='payment-type-icon'/></button>
-          <button className='order-button' onClick={handleSubmit}>Order and pay (${totalCost})</button>
-        </div> */}
         <div className="buttons-box">
-          <button className='payment-type-button'>
-            Choose payment method <i className="fa fa-credit-card" aria-hidden="true"></i>
+          <button className='payment-type-button' onClick={handleChoosePaymentMethod}>
+            Choose payment method <img src={paymentTypeIcon} alt="Payment Type Icon" />
           </button>
-          <button className='order-button' onClick={handleSubmit}>
-            Order and pay (${totalCost}) <i className="fa fa-money-bill-wave" aria-hidden="true"></i>
+          <button className='order-button' onClick={handleSubmit} disabled={!selectedPaymentMethod}>
+            Order and pay (${totalCost}) <img src={orderPayIcon} alt="Order Pay Icon" />
           </button>
         </div>
-
-
       </div>
+      {showPaymentModal && (
+        <PaymentMethod 
+          onClose={handleClosePaymentModal}
+          onPaymentMethodChange={handlePaymentMethodChange}
+          selectedPaymentMethod={selectedPaymentMethod}
+        />
+      )}
     </Page>
   );
 };
 
 export default CheckoutPage;
-
-

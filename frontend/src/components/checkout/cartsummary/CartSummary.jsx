@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './CartSummary.css';
 
-const CartSummary = ({ onTotalCostChange }) => {
+const CartSummary = ({ orderType, onTotalCostChange }) => {
   const [quantity, setQuantity] = useState(1);
   const itemPrice = 10.99;
-  const deliveryFee = 1.00;
+  const deliveryFee = orderType === 'delivery' ? 1.00 : 0;
 
   useEffect(() => {
     const totalCost = (quantity * itemPrice + deliveryFee).toFixed(2);
     onTotalCostChange(totalCost);
-  }, [quantity, onTotalCostChange]);
+  }, [quantity, deliveryFee, onTotalCostChange]);
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -29,9 +29,9 @@ const CartSummary = ({ onTotalCostChange }) => {
           <span>$10.99</span>
         </div>
         <div className="quantity-controls">
-          <button onClick={increaseQuantity}>+</button>
-          <span>{quantity}</span>
           <button onClick={decreaseQuantity}>-</button>
+          <span>{quantity}</span>
+          <button onClick={increaseQuantity}>+</button>
         </div>
       </div>
       <div className="cart-summary-details">
@@ -39,10 +39,12 @@ const CartSummary = ({ onTotalCostChange }) => {
           <span>Order:</span> 
           <span>{quantity} x $10.99</span>
         </p>
-        <p>
-          <span>Delivery:</span> 
-          <span>$1.00</span>
-        </p>
+        {orderType === 'delivery' && (
+          <p>
+            <span>Delivery:</span> 
+            <span>$1.00</span>
+          </p>
+        )}
         <p className="total-cost">
           <span>Total cost:</span> 
           <span>${(quantity * itemPrice + deliveryFee).toFixed(2)}</span>
