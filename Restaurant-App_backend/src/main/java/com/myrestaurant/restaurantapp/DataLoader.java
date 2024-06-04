@@ -76,13 +76,11 @@ public class DataLoader implements CommandLineRunner {
         Order order3 = new Order(null, user3, LocalDate.now(), Collections.emptyList());
         Order order4 = new Order(null, user4, LocalDate.now(), Collections.emptyList());
         Order order5 = new Order(null, user5, LocalDate.now(), Collections.emptyList());
-        Order order6 = new Order(null, user1, LocalDate.now(), Collections.emptyList());
         orderRepository.save(order1);
         orderRepository.save(order2);
         orderRepository.save(order3);
         orderRepository.save(order4);
         orderRepository.save(order5);
-        orderRepository.save(order6);
 
 
         // Load Order Items
@@ -116,12 +114,6 @@ public class DataLoader implements CommandLineRunner {
         orderItemRepository.save(orderItem10);
         order5.setOrderItems(Arrays.asList(orderItem9,orderItem10));
         orderRepository.save(order5);
-        OrderItem orderItem11 = new OrderItem(null, order6, product2, 1);
-        OrderItem orderItem12 = new OrderItem(null, order6, product1, 2);
-        orderItemRepository.save(orderItem11);
-        orderItemRepository.save(orderItem12);
-        order6.setOrderItems(Arrays.asList(orderItem9,orderItem10));
-        orderRepository.save(order6);
 
         // Load Shopping Carts
         ShoppingCart shoppingCart1 = new ShoppingCart(null, user5, Collections.emptyList());

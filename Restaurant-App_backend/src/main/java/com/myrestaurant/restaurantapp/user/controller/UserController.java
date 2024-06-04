@@ -1,11 +1,18 @@
 package com.myrestaurant.restaurantapp.user.controller;
 
+import com.myrestaurant.restaurantapp.security.jwt.JwtService;
 import com.myrestaurant.restaurantapp.user.model.User;
 import com.myrestaurant.restaurantapp.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("${api.users.base}")
@@ -34,13 +41,18 @@ public class UserController {
         return userService.createUser(user);
     }
 
-    @PutMapping("/{userID}")
-    public ResponseEntity<User> updateUser(@PathVariable Long userID, @RequestBody User userDetails) {
-        try {
-            User updatedUser = userService.updateUser(userID, userDetails);
+    @PutMapping("/profile")
+    public ResponseEntity<User> updateUserProfile(@RequestBody User userDetails) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+        Optional<User> currentUserOpt = userService.findByEmail(userPrincipal.getUsername());
+
+        if (currentUserOpt.isPresent()) {
+            User currentUser = currentUserOpt.get();
+            User updatedUser = userService.updateUserProfile(currentUser.getId(), userDetails);
             return ResponseEntity.ok(updatedUser);
-        } catch (RuntimeException ex) {
-            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -53,4 +65,5 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
 }

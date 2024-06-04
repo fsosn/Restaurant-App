@@ -2,6 +2,7 @@ package com.myrestaurant.restaurantapp.product.controller;
 
 import com.myrestaurant.restaurantapp.product.model.Product;
 import com.myrestaurant.restaurantapp.product.service.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
-@CrossOrigin("*")
 public class ProductController {
 
     private final ProductService productService;
@@ -53,7 +53,11 @@ public class ProductController {
     @DeleteMapping("/{productID}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteProduct(@PathVariable Long productID) {
-        productService.deleteProduct(productID);
-        return ResponseEntity.ok().build();
+        try {
+            productService.deleteProduct(productID);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
