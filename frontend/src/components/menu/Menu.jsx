@@ -1,7 +1,7 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import "./Menu.css";
 
-const Menu = () => {
+const Menu = ({ addToCart }) => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -11,8 +11,9 @@ const Menu = () => {
             .catch(error => console.error('Error fetching products:', error));
     }, []);
 
-    const renderPizzaMenu = () => {
-        return (
+    return (
+        <div className="container-fluid offset">
+            <h1 className={"menu-title"}>Menu</h1>
             <div className={"menu-container"}>
                 <div className="menu-items">
                     {products.map((product) => (
@@ -26,9 +27,10 @@ const Menu = () => {
                                 </div>
                                 <div className={"cont"}>
                                     <div>
-                                        <p className={"price"}>${product.price.toFixed(2)}</p></div>
+                                        <p className={"price"}>${product.price.toFixed(2)}</p>
+                                    </div>
                                     <div>
-                                        <button className={"btn-add"}>
+                                        <button className={"btn-add"} onClick={() => addToCart(product.name, product.price)}>
                                             <img src="./add.svg" alt="Add icon"/>
                                         </button>
                                     </div>
@@ -38,13 +40,6 @@ const Menu = () => {
                     ))}
                 </div>
             </div>
-        );
-    };
-
-    return (
-        <div className="container-fluid offset">
-            <h1 className={"menu-title"}>Menu</h1>
-            {renderPizzaMenu()}
         </div>
     );
 };
