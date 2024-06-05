@@ -149,9 +149,11 @@ public class AuthenticationService {
 
     public RoleResponse getRole(String jwt){
         String role = jwtService.extractUserRole(jwt.substring(7));
+        Long userId = jwtService.extractUserId(jwt.substring(7));
 
         return RoleResponse.builder()
                 .role(role)
+                .userId(userId)
                 .build();
     }
 
