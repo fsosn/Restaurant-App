@@ -19,6 +19,6 @@ api:
     authenticate: /authenticate
     register: /register
     change: /change-password
-    get-role: /get-role
+    account-details: /account-details
   users:
     base: /api/users

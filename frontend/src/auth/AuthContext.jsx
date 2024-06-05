@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import {createContext, useEffect, useState} from "react";
 import { auth } from "./auth.jsx";
 import PropTypes from "prop-types";
 
@@ -8,14 +8,12 @@ export const AuthProvider = ({ children }) => {
     const [email, setEmail] = useState(null);
     const [role, setRole] = useState(null);
     const [userId, setUserId] = useState(null);
-    const [token, setToken] = useState(null);
 
     let signIn = (email, password, callback) => {
-        return auth.signIn(email, password, ({ userId, token }) => {
-            setEmail(email);
+        return auth.signIn(email, password, () => {
+            setEmail(auth.email);
             setRole(auth.role);
-            setUserId(userId);
-            setToken(token);
+            setUserId(auth.userId);
             callback();
         });
     };
@@ -25,13 +23,28 @@ export const AuthProvider = ({ children }) => {
             setEmail(null);
             setRole(null);
             setUserId(null);
-            setToken(null);
             callback();
         });
     };
 
+    const initializeAuthentication = async () => {
+        try {
+            await auth.authenticateFromCookie();
+            setEmail(auth.email);
+            setRole(auth.role);
+            setUserId(auth.userId);
+            auth.isAuthenticated = true;
+        } catch (error) {
+            console.error("Error initializing authentication:", error);
+        }
+    };
+
+    useEffect(() => {
+        initializeAuthentication();
+    }, []);
+
     return (
-        <AuthContext.Provider value={{ user: email, role, userId, token, signIn, signOut }}>
+        <AuthContext.Provider value={{ user: email, role, userId, signIn, signOut }}>
             {children}
         </AuthContext.Provider>
     );
