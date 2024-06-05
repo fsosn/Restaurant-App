@@ -3,17 +3,19 @@ import React from 'react';
 import Header from "../../components/header/Header.jsx";
 import ShoppingCart from "../../components/shoppingCart/ShoppingCart";
 import "./Page.css";
+import Footer from "../../components/footer/Footer.jsx";
 
-const Page = ({ pageTitle, children, toggleCartVisibility, cartItems, isCartVisible, updateCartItems }) => {
+const Page = ({pageTitle, children, toggleCartVisibility, cartItems, isCartVisible, updateCartItems}) => {
     return (
         <div className="container-fluid">
             <div className={"header"}>
-                <Header title={pageTitle} toggleCartVisibility={toggleCartVisibility} />
+                <Header title={pageTitle} toggleCartVisibility={toggleCartVisibility}/>
             </div>
             <div className={"main"}>
                 {children}
             </div>
-            {isCartVisible && <ShoppingCart cartItems={cartItems} updateCartItems={updateCartItems} />}
+            {isCartVisible && <ShoppingCart cartItems={cartItems} updateCartItems={updateCartItems}/>}
+            <div className="mt-5"><Footer/></div>
         </div>
     );
 };

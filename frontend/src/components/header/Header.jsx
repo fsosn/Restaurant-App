@@ -4,9 +4,11 @@ import "./Header.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../sidebar/Sidebar";
+import {useNavigate} from "react-router-dom";
 
 const Header = ({ title, toggleCartVisibility }) => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen);
@@ -14,7 +16,7 @@ const Header = ({ title, toggleCartVisibility }) => {
 
     return (
         <div className="header bg">
-            <h1 className="pageTitle">{title}</h1>
+            <h1 className="pageTitle" onClick={()=>navigate("/")}>{title}</h1>
             <div className="icon-container">
                 <div>
                     <FontAwesomeIcon icon={faCartShopping} className="icon cart-icon wrapper" onClick={toggleCartVisibility} />

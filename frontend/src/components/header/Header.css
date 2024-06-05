@@ -13,9 +13,10 @@
     font-size: 36px;
     font-weight: 700;
     padding-left: 16px;
+    cursor: pointer;
 }
 
-.icons {
+.footer-icon {
     display: flex;
     align-items: center;
 }
