@@ -139,6 +139,13 @@
     border-radius: 5px;
 }
 
-.cart-checkout-btn:hover {
+.cart-checkout-btn:disabled {
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+    border: 1px solid #a0a0a0;
+    color: #a0a0a0;
+  }
+
+.cart-checkout-btn:enabled:hover {
     background-color: var(--primary-normal-hover);
 }

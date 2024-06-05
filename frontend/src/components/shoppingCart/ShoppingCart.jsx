@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./ShoppingCart.css";
 
 const ShoppingCart = ({ cartItems, updateCartItems }) => {
     const [cart, setCart] = useState([]);
-    const [deliveryOption, setDeliveryOption] = useState("delivery");
+    const [deliveryOption, setDeliveryOption] = useState("takeout");
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (cartItems) {
@@ -42,12 +44,15 @@ const ShoppingCart = ({ cartItems, updateCartItems }) => {
         updateCartItems(updatedCart);
     };
 
+    const handleCheckout = () => {
+        navigate('/checkout');
+    };
 
     return (
         <div className="cart">
             <div className="cart-header">
+                <button className={`cart-tab ${deliveryOption === "takeout" ? "active" : ""}`} onClick={() => setDeliveryOption("takeout")}>Takeout</button>
                 <button className={`cart-tab ${deliveryOption === "delivery" ? "active" : ""}`} onClick={() => setDeliveryOption("delivery")}>Delivery</button>
-                <button className={`cart-tab ${deliveryOption === "takeout" ? "active" : ""}`} onClick={() => setDeliveryOption("takeout")}>Takeaway</button>
             </div>
             <div className="cart-content">
                 <div className="cart-items-1">
@@ -81,7 +86,7 @@ const ShoppingCart = ({ cartItems, updateCartItems }) => {
                         <span>${(totalCost + deliveryCost).toFixed(2)}</span>
                     </div>
                 </div>
-                <button className="cart-checkout-btn">Checkout</button>
+                <button className="cart-checkout-btn" onClick={handleCheckout} disabled={totalCost < 10}>Checkout</button>
             </div>
         </div>
     );

@@ -1,19 +1,19 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Page from "../template/Page.jsx";
 import './CheckoutPage.css';
 import DeliveryDetailsForm from '../../components/checkout/deliverydetails/DeliveryDetailsForm.jsx';
 import PersonalDetailsForm from '../../components/checkout/personaldetails/PersonalDetailsForm.jsx';
-import CartSummary from '../../components/checkout/cartsummary/CartSummary.jsx';
 import PaymentMethod from '../../components/checkout/paymentMethod/PaymentMethod.jsx';
+import CartProducts from '../../components/checkout/cartProducts/CartProducts.jsx';
 import api from '../../services/api.jsx';
 import { AuthContext } from '../../auth/AuthContext.jsx';
 import orderPayIcon from '../../assets/order-pay.svg';
 import paymentTypeIcon from '../../assets/payment-type.svg';
 
-const CheckoutPage = () => {
+const CheckoutPage = ({ cartItems, updateCartItems }) => {
   const auth = useContext(AuthContext);
-  const [orderType, setOrderType] = useState('takeaway'); // Default to takeaway
-  const [totalCost, setTotalCost] = useState('11.99'); // Initial total cost
+  const [orderType, setOrderType] = useState('takeout');
+  const [totalCost, setTotalCost] = useState(cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0) + (orderType === 'delivery' ? 1 : 0));
   const [errors, setErrors] = useState({});
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
@@ -127,16 +127,21 @@ const CheckoutPage = () => {
     setSelectedPaymentMethod(method);
   };
 
-  let title = "MarioLuigi";
+  const handleOrderTypeChange = (type) => {
+    setOrderType(type);
+    const newTotalCost = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0) + (type === 'delivery' ? 1 : 0);
+    setTotalCost(newTotalCost);
+  };
+
   return (
-    <Page pageTitle={title}>
+    <Page pageTitle="MarioLuigi">
       <div className="checkout-container-box">
         <h1 className="order-type-buttons" style={{ color: "orange" }}>
           Checkout
-          <button onClick={() => setOrderType('takeaway')} className={orderType === 'takeaway' ? 'active' : ''}>
-            Takeaway
+          <button onClick={() => handleOrderTypeChange('takeout')} className={orderType === 'takeout' ? 'active' : ''}>
+            Takeout
           </button>
-          <button onClick={() => setOrderType('delivery')} className={orderType === 'delivery' ? 'active' : ''}>
+          <button onClick={() => handleOrderTypeChange('delivery')} className={orderType === 'delivery' ? 'active' : ''}>
             Delivery
           </button>
         </h1>
@@ -145,17 +150,17 @@ const CheckoutPage = () => {
             <div className="delivery-details-box"><DeliveryDetailsForm errors={errors} /></div>
           }
           <div className="personal-details-box"><PersonalDetailsForm errors={errors} /></div>
-        </div>
-        <div>
-          <CartSummary orderType={orderType} onTotalCostChange={handleTotalCostChange} />
-        </div>
-        <div className="buttons-box">
+          <div className="buttons-box">
           <button className='payment-type-button' onClick={handleChoosePaymentMethod}>
             Choose payment method <img src={paymentTypeIcon} alt="Payment Type Icon" />
           </button>
-          <button className='order-button' onClick={handleSubmit} disabled={!selectedPaymentMethod}>
-            Order and pay (${totalCost}) <img src={orderPayIcon} alt="Order Pay Icon" />
+          <button className='order-button' onClick={handleSubmit} disabled={!selectedPaymentMethod || totalCost < 10}>
+            Order and pay (${totalCost.toFixed(2)}) <img src={orderPayIcon} alt="Order Pay Icon" />
           </button>
+          </div>
+        </div>
+        <div>
+          <CartProducts cartItems={cartItems} updateCartItems={updateCartItems} orderType={orderType} onTotalCostChange={handleTotalCostChange} />
         </div>
       </div>
       {showPaymentModal && (
