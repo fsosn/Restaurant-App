@@ -1,0 +1,21 @@
+.footer-container {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-light-active);
+}
+
+.footer-sections-font{
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.mr-16{
+    margin-right: 16px;
+}
+
+.footer-icon{
+    cursor: pointer;
+}
