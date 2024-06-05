@@ -6,7 +6,7 @@ import com.myrestaurant.restaurantapp.security.auth.request.RegisterRequest;
 import com.myrestaurant.restaurantapp.security.auth.response.AuthenticationResponse;
 import com.myrestaurant.restaurantapp.security.auth.response.ChangePasswordResponse;
 import com.myrestaurant.restaurantapp.security.auth.response.RegisterResponse;
-import com.myrestaurant.restaurantapp.security.auth.response.RoleResponse;
+import com.myrestaurant.restaurantapp.security.auth.response.AccountDetailsResponse;
 import com.myrestaurant.restaurantapp.security.auth.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +35,8 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.changePassword(request));
     }
 
-    @GetMapping("${api.auth.get-role}")
-    public ResponseEntity<RoleResponse> getRole(@RequestHeader("Authorization") String jwt) {
-        return ResponseEntity.ok(authenticationService.getRole(jwt));
+    @GetMapping("${api.auth.account-details}")
+    public ResponseEntity<AccountDetailsResponse> getAccountDetails(@RequestHeader("Authorization") String jwt) {
+        return ResponseEntity.ok(authenticationService.getAccountDetails(jwt));
     }
 }

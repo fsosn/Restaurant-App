@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleResponse {
+public class AccountDetailsResponse {
     private String role;
     private Long userId;
+    private String email;
 }

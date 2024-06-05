@@ -1,7 +1,9 @@
-import { API_ENDPOINTS } from "../config/config.jsx";
+import {API_ENDPOINTS} from "../config/config.jsx";
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 const auth = {
+    email: null,
     isAuthenticated: false,
     role: null,
     userId: null,
@@ -27,22 +29,25 @@ const auth = {
             const token = authResponse.data.token;
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            const getRoleResponse = await axios.get(
+            const roleRes = await axios.get(
                 API_ENDPOINTS.BASE_URL +
                 API_ENDPOINTS.API +
                 API_ENDPOINTS.AUTH +
-                API_ENDPOINTS.GET_ROLE,
+                API_ENDPOINTS.ACCOUNT_DETAILS,
             );
 
-            const role = getRoleResponse.data.role;
-            const userId = getRoleResponse.data.userId;
+            const role = roleRes.data.role;
+            const userId = roleRes.data.userId;
             auth.isAuthenticated = true;
             auth.role = role;
             auth.userId = userId;
-            console.log("Role: ", role);
-            console.log("UserId: ", auth.userId);
-            console.log("Token: ", token);
-            callback({ userId, token });
+
+            const userData = {token, userId, role};
+            Cookies.set("userData", JSON.stringify(userData), {
+                secure: true,
+                sameSite: "strict",
+            });
+            callback();
         } catch (e) {
             alert("Authentication failed");
             console.error("Authentication failed: ", e);
@@ -56,7 +61,38 @@ const auth = {
         auth.userId = null;
         window.location.reload();
         callback();
-    }
+    },
+
+    authenticateFromCookie: async () => {
+        const userDataString = Cookies.get("userData");
+        if (userDataString) {
+            const userData = JSON.parse(userDataString);
+            const token = userData.token;
+            try {
+                const response = await axios.get(
+                    API_ENDPOINTS.BASE_URL +
+                    API_ENDPOINTS.API +
+                    API_ENDPOINTS.AUTH + API_ENDPOINTS.ACCOUNT_DETAILS,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                auth.isAuthenticated = true;
+                auth.role = response.data.role;
+                auth.userId = response.data.userId;
+                auth.email = response.data.email;
+            } catch (error) {
+                console.error("Error during authentication from cookie:", error);
+                Cookies.remove("userData");
+                auth.isAuthenticated = false;
+                auth.role = null;
+                auth.userId = null;
+                auth.email = null;
+            }
+        }
+    },
 };
 
-export { auth };
+export {auth};

@@ -6,7 +6,7 @@ import com.myrestaurant.restaurantapp.security.auth.request.ChangePasswordReques
 import com.myrestaurant.restaurantapp.security.auth.response.RegisterResponse;
 import com.myrestaurant.restaurantapp.security.auth.response.AuthenticationResponse;
 import com.myrestaurant.restaurantapp.security.auth.response.ChangePasswordResponse;
-import com.myrestaurant.restaurantapp.security.auth.response.RoleResponse;
+import com.myrestaurant.restaurantapp.security.auth.response.AccountDetailsResponse;
 import com.myrestaurant.restaurantapp.security.auth.validation.AuthValidationUtil;
 import com.myrestaurant.restaurantapp.security.jwt.JwtService;
 import com.myrestaurant.restaurantapp.user.exception.UserAlreadyRegisteredException;
@@ -147,13 +147,14 @@ public class AuthenticationService {
         }
     }
 
-    public RoleResponse getRole(String jwt){
+    public AccountDetailsResponse getAccountDetails(String jwt){
         String role = jwtService.extractUserRole(jwt.substring(7));
         Long userId = jwtService.extractUserId(jwt.substring(7));
 
-        return RoleResponse.builder()
+        return AccountDetailsResponse.builder()
                 .role(role)
                 .userId(userId)
+                .email(getCurrentUserEmail())
                 .build();
     }
 
