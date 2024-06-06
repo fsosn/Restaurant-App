@@ -32,8 +32,9 @@
     padding: 10px 0;
 }
 
-.order-date {
+.order-id, .client-id, .client-name, .order-date {
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .order-details {
