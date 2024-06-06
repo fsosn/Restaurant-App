@@ -1,3 +1,11 @@
+.edit-prod {
+    margin-left: 10px;
+}
+
+.form-group{
+    margin-top: 10px;
+}
+
 .add-btn {
     margin-left: 10px;
     margin-right: 10px;
@@ -7,12 +15,17 @@
     border-color: #bc6900;
 }
 
+.btn-danger {
+    margin-top: 10px;
+}
+
 .add-btn:hover {
     background-color: #e27e00;
 }
 
 .edit-btn{
     margin-right: 10px;
+    margin-top: 10px;
     background-color: #fb8c00;
     color: #fef2e6;
     border-color: #bc6900;
