@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import "./Menu.css";
 
-const Menu = ({ addToCart }) => {
+const Menu = ({addToCart}) => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -30,7 +30,8 @@ const Menu = ({ addToCart }) => {
                                         <p className={"price"}>${product.price.toFixed(2)}</p>
                                     </div>
                                     <div>
-                                        <button className={"btn-add"} onClick={() => addToCart(product.name, product.price)}>
+                                        <button className={"btn-add"}
+                                                onClick={() => addToCart(product.name, product.price)}>
                                             <img src="./add.svg" alt="Add icon"/>
                                         </button>
                                     </div>

@@ -35,10 +35,9 @@ const auth = {
                 API_ENDPOINTS.AUTH +
                 API_ENDPOINTS.ACCOUNT_DETAILS,
             );
-
+            auth.isAuthenticated = true;
             const role = roleRes.data.role;
             const userId = roleRes.data.userId;
-            auth.isAuthenticated = true;
             auth.role = role;
             auth.userId = userId;
 
@@ -59,6 +58,8 @@ const auth = {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         auth.isAuthenticated = false;
         auth.userId = null;
+        auth.email = null;
+        Cookies.remove("userData");
         window.location.reload();
         callback();
     },
@@ -83,6 +84,7 @@ const auth = {
                 auth.role = response.data.role;
                 auth.userId = response.data.userId;
                 auth.email = response.data.email;
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             } catch (error) {
                 console.error("Error during authentication from cookie:", error);
                 Cookies.remove("userData");

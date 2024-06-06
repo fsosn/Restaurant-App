@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+    const [authenticated, setAuthenticated] = useState(null);
     const [email, setEmail] = useState(null);
     const [role, setRole] = useState(null);
     const [userId, setUserId] = useState(null);
@@ -14,6 +15,7 @@ export const AuthProvider = ({ children }) => {
             setEmail(auth.email);
             setRole(auth.role);
             setUserId(auth.userId);
+            setAuthenticated(true);
             callback();
         });
     };
@@ -23,6 +25,7 @@ export const AuthProvider = ({ children }) => {
             setEmail(null);
             setRole(null);
             setUserId(null);
+            setAuthenticated(false);
             callback();
         });
     };
@@ -33,7 +36,7 @@ export const AuthProvider = ({ children }) => {
             setEmail(auth.email);
             setRole(auth.role);
             setUserId(auth.userId);
-            auth.isAuthenticated = true;
+            setAuthenticated(auth.isAuthenticated);
         } catch (error) {
             console.error("Error initializing authentication:", error);
         }
@@ -44,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user: email, role, userId, signIn, signOut }}>
+        <AuthContext.Provider value={{ user: email, role, userId, signIn, signOut, authenticated }}>
             {children}
         </AuthContext.Provider>
     );

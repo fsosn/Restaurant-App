@@ -2,11 +2,11 @@ import './App.css';
 import MainPage from "./pages/MainPage.jsx";
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 import CheckoutPage from "./pages/checkout/CheckoutPage.jsx";
-import { Route, Routes } from "react-router-dom";
-import { RequireAuth } from "./auth/RequireAuth.jsx";
+import {Route, Routes} from "react-router-dom";
+import {RequireAuth} from "./auth/RequireAuth.jsx";
 import RegisterForm from "./components/auth/register/RegisterForm.jsx";
 import LoginForm from "./components/auth/login/LoginForm.jsx";
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 function App() {
     const [isCartVisible, setIsCartVisible] = useState(false);
@@ -33,11 +33,11 @@ function App() {
         if (existingItemIndex !== -1) {
             updatedCart = cartItems.map((cartItem, index) =>
                 index === existingItemIndex
-                    ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                    ? {...cartItem, quantity: cartItem.quantity + 1}
                     : cartItem
             );
         } else {
-            updatedCart = [...cartItems, { name: productName, price, quantity: 1 }];
+            updatedCart = [...cartItems, {name: productName, price, quantity: 1}];
         }
 
         setCartItems(updatedCart);
@@ -58,17 +58,19 @@ function App() {
                     />
                 }
             />
-            <Route path='/login' element={<LoginForm />} />
-            <Route path='/register' element={<RegisterForm />} />
+            <Route path='/login' element={<LoginForm/>}/>
+            <Route path='/register' element={<RegisterForm/>}/>
             <Route
                 path='/order-history'
                 element={
-                    <OrderHistoryPage
-                        toggleCartVisibility={toggleCartVisibility}
-                        cartItems={cartItems}
-                        isCartVisible={isCartVisible}
-                        updateCartItems={updateCartItems}
-                    />
+                    <RequireAuth>
+                        <OrderHistoryPage
+                            toggleCartVisibility={toggleCartVisibility}
+                            cartItems={cartItems}
+                            isCartVisible={isCartVisible}
+                            updateCartItems={updateCartItems}
+                        />
+                    </RequireAuth>
                 }
             />
             <Route

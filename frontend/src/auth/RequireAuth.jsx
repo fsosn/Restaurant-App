@@ -7,7 +7,14 @@ export function RequireAuth({children}) {
     let auth = useContext(AuthContext);
     let location = useLocation();
 
-    if (!auth.user) {
+    if (auth.authenticated === null) {
+        return (
+            <div>
+                Loading...
+            </div>)
+    }
+
+    if (!auth.authenticated) {
         return <Navigate to="/login" state={{from: location}} replace/>;
     }
 

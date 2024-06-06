@@ -28,7 +28,7 @@ const api = {
         }
     },
 
-    getOrdersByUserId: async (userId, token) => {
+    getOrdersByUserId: async (userId) => {
         try {
             const response = await axios.get(
                 API_ENDPOINTS.BASE_URL +
@@ -36,11 +36,6 @@ const api = {
                 API_ENDPOINTS.USER + 
                 '/' + 
                 userId,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
             );
 
             handleErrors(response);
@@ -52,14 +47,11 @@ const api = {
         }
     },
 
-    getAllOrders: async (token) => {
+    getAllOrders: async () => {
         try {
             const response = await axios.get(
                 `${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.ORDERS}`,
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
                 }
             );
 
