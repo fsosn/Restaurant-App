@@ -86,7 +86,7 @@ const api = {
     },
     getAllProducts: async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/products`);
+            const response = await axios.get(`${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.PRODUCTS}`);
             return handleErrors(response).data;
         } catch (error) {
             console.error('Error fetching all products:', error);
@@ -96,7 +96,7 @@ const api = {
 
     getProductById: async (productId) => {
         try {
-            const response = await axios.get(`${BASE_URL}/products/${productId}`);
+            const response = await axios.get(`${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.PRODUCTS}${productId}`);
             return handleErrors(response).data;
         } catch (error) {
             console.error('Error fetching product by ID:', error);
@@ -106,7 +106,7 @@ const api = {
 
     createProduct: async (product) => {
         try {
-            const response = await axios.post(`${BASE_URL}/products`, product);
+            const response = await axios.post(`${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.PRODUCTS}`, product);
             return handleErrors(response).data;
         } catch (error) {
             console.error('Error creating product:', error);
@@ -116,7 +116,7 @@ const api = {
 
     updateProduct: async (productId, productDetails) => {
         try {
-            const response = await axios.put(`${BASE_URL}/products/${productId}`, productDetails);
+            const response = await axios.put(`${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.PRODUCTS}${productId}`, productDetails);
             return handleErrors(response).data;
         } catch (error) {
             console.error('Error updating product:', error);
@@ -126,7 +126,7 @@ const api = {
 
     deleteProduct: async (productId) => {
         try {
-            const response = await axios.delete(`${BASE_URL}/products/${productId}`);
+            const response = await axios.delete(`${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.PRODUCTS}${productId}`);
             return handleErrors(response);
         } catch (error) {
             console.error('Error deleting product:', error);
