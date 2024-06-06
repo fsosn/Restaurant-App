@@ -235,6 +235,7 @@ const CheckoutPage = ({ cartItems, updateCartItems }) => {
           onClose={() => setShowProcessingWindow(false)}
           onFinalize={handleFinalizePayment}
           paymentMethod={selectedPaymentMethod}
+          totalCost={totalCost}
         />
       )}
     </Page>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PaymentProcessingWindow.css';
 
-const PaymentProcessingWindow = ({ onClose, onFinalize, paymentMethod }) => {
+const PaymentProcessingWindow = ({ onClose, onFinalize, paymentMethod, totalCost }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const [controller, setController] = useState(null);
@@ -10,7 +10,7 @@ const PaymentProcessingWindow = ({ onClose, onFinalize, paymentMethod }) => {
 
   const handleFinalizePayment = () => {
     if (paymentMethod.toLowerCase() === 'cash') {
-      setStatusMessage('Your bill will be delivered to your table.');
+      setStatusMessage(`Your total order cost is $${totalCost.toFixed(2)}. Please pay this amount when claiming your order.`);
       return;
     }
 
@@ -62,7 +62,7 @@ const PaymentProcessingWindow = ({ onClose, onFinalize, paymentMethod }) => {
           <h2>{paymentMethod.toUpperCase()} Payment</h2>
           {paymentMethod.toLowerCase() === 'cash' ? (
             <div>
-              <p>Your bill will be delivered to your table.</p>
+              <p>{statusMessage}</p>
               <button onClick={handleSuccessNavigate}>Make Another Order</button>
             </div>
           ) : (
