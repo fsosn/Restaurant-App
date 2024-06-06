@@ -13,16 +13,16 @@ const OrderHistoryPage = () => {
 
     useEffect(() => {
         const fetchOrders = async () => {
-            try {
+            try {console.log(auth)
+                if (!auth.role || !auth.userId) {
+                    return;
+                }
+
                 let ordersData;
                 if (auth.role === "ADMIN") {
-                    ordersData = await api.getAllOrders(auth.token);
+                    ordersData = await api.getAllOrders();
                 } else if (auth.role === "USER") {
-                    ordersData = await api.getOrdersByUserId(auth.userId, auth.token);
-                } else {
-                    setError("To see your Order History please log in");
-                    setLoading(false);
-                    return;
+                    ordersData = await api.getOrdersByUserId(auth.userId);
                 }
                 setOrders(ordersData);
                 setLoading(false);
@@ -33,12 +33,12 @@ const OrderHistoryPage = () => {
         };
 
         fetchOrders();
-    }, [auth.role, auth.userId, auth.token]);
+    }, [auth.role, auth.userId]);
 
     return (
         <Page pageTitle="Order History">
             <Header title="MarioLuigi" />
-            {loading && <p>Loading orders...</p>}
+            {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
             {!loading && !error && <OrderHistory orders={orders} />}
         </Page>
