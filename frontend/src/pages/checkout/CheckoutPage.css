@@ -41,6 +41,9 @@
     position: relative; 
 }
   
+  .add-more-button{
+    background-color: blue;
+  }
   .order-type-buttons button.active {
     background-color: #F8991D;
     color: #fff;
@@ -83,6 +86,17 @@
     margin-top: 10px;
   }
 
+  .buttons-box .add-more-button {
+    background-color: #f57c00;
+    color: #fef2e6;
+    border: 1px solid #b85d00;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 4px;
+    margin-top: -40px;
+  }
+
   .buttons-box .order-button:disabled {
     cursor: not-allowed;
     background-color: #e0e0e0;
@@ -91,6 +105,10 @@
   }
 
   .buttons-box .order-button:enabled:hover {
+    background-color:   #d06900;
+  }
+
+  .buttons-box .add-more-button:enabled:hover {
     background-color:   #d06900;
   }
 

@@ -1,22 +1,26 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Page from "../template/Page.jsx";
 import './CheckoutPage.css';
 import DeliveryDetailsForm from '../../components/checkout/deliverydetails/DeliveryDetailsForm.jsx';
 import PersonalDetailsForm from '../../components/checkout/personaldetails/PersonalDetailsForm.jsx';
 import PaymentMethod from '../../components/checkout/paymentMethod/PaymentMethod.jsx';
+import BlikPaymentWindow from '../../components/checkout/paymentMethod/BlikPaymentWindow.jsx';
+import PaymentProcessingWindow from '../../components/checkout/paymentMethod/PaymentProcessingWindow.jsx';
 import CartProducts from '../../components/checkout/cartProducts/CartProducts.jsx';
 import api from '../../services/api.jsx';
-import { AuthContext } from '../../auth/AuthContext.jsx';
 import orderPayIcon from '../../assets/order-pay.svg';
 import paymentTypeIcon from '../../assets/payment-type.svg';
 
 const CheckoutPage = ({ cartItems, updateCartItems }) => {
-  const auth = useContext(AuthContext);
   const [orderType, setOrderType] = useState('takeout');
   const [totalCost, setTotalCost] = useState(cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0) + (orderType === 'delivery' ? 1 : 0));
   const [errors, setErrors] = useState({});
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showProcessingWindow, setShowProcessingWindow] = useState(false);
+  const [showBlikWindow, setShowBlikWindow] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+  const navigate = useNavigate();
 
   const handleTotalCostChange = (newTotalCost) => {
     setTotalCost(newTotalCost);
@@ -99,19 +103,56 @@ const CheckoutPage = ({ cartItems, updateCartItems }) => {
       };
     }
 
-    console.log('Auth Token:', auth.token);
     console.log('Transaction Request:', request);
 
+    if (selectedPaymentMethod === 'blik') {
+      setShowBlikWindow(true);
+    } else {
+      setShowProcessingWindow(true);
+    }
+  };
+
+  const handleFinalizePayment = async (blikCode) => {
+    const firstName = document.getElementById('first-name').value;
+    const lastName = document.getElementById('last-name').value;
+    const email = document.getElementById('email').value;
+    const phoneNumber = document.getElementById('phone-number').value;
+
+    let request = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      totalCost: parseFloat(totalCost),
+      orderType,
+      paymentMethod: selectedPaymentMethod,
+    };
+
+    if (selectedPaymentMethod === 'blik') {
+      request.blikCode = blikCode;
+    }
+
+    if (orderType === 'delivery') {
+      request = {
+        ...request,
+        streetAddress: document.getElementById('street-address').value,
+        streetAddress2: document.getElementById('street-address-2').value,
+        city: document.getElementById('city').value,
+        state: document.getElementById('state').value,
+        zipCode: document.getElementById('zip-code').value,
+      };
+    }
+
     try {
-      const response = await api.processTransaction(request, auth.token);
+      const response = await api.processTransaction(request);
       if (response.status === 200) {
-        alert('Transaction processed successfully');
+        return true;
       } else {
-        alert('Transaction failed');
+        return false;
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Transaction failed');
+      return false;
     }
   };
 
@@ -133,6 +174,10 @@ const CheckoutPage = ({ cartItems, updateCartItems }) => {
     setTotalCost(newTotalCost);
   };
 
+  const handleShowMenu = () => {
+    navigate('/');
+  };
+
   return (
     <Page pageTitle="MarioLuigi">
       <div className="checkout-container-box">
@@ -151,12 +196,21 @@ const CheckoutPage = ({ cartItems, updateCartItems }) => {
           }
           <div className="personal-details-box"><PersonalDetailsForm errors={errors} /></div>
           <div className="buttons-box">
-          <button className='payment-type-button' onClick={handleChoosePaymentMethod}>
-            Choose payment method <img src={paymentTypeIcon} alt="Payment Type Icon" />
-          </button>
-          <button className='order-button' onClick={handleSubmit} disabled={!selectedPaymentMethod || totalCost < 10}>
-            Order and pay (${totalCost.toFixed(2)}) <img src={orderPayIcon} alt="Order Pay Icon" />
-          </button>
+            {totalCost > 10 ? (
+              <>
+                <button className='payment-type-button' onClick={handleChoosePaymentMethod}>
+                  Choose payment method <img src={paymentTypeIcon} alt="Payment Type Icon" />
+                </button>
+                
+                <button className='order-button' onClick={handleSubmit} disabled={!selectedPaymentMethod || totalCost < 10}>
+                  Order and pay (${totalCost.toFixed(2)}) <img src={orderPayIcon} alt="Order Pay Icon" />
+                </button>
+              </>
+            ) : (
+              <button className='add-more-button' onClick={handleShowMenu}>
+                Add something more
+              </button>
+            )}
           </div>
         </div>
         <div>
@@ -168,6 +222,19 @@ const CheckoutPage = ({ cartItems, updateCartItems }) => {
           onClose={handleClosePaymentModal}
           onPaymentMethodChange={handlePaymentMethodChange}
           selectedPaymentMethod={selectedPaymentMethod}
+        />
+      )}
+      {showBlikWindow && (
+        <BlikPaymentWindow 
+          onClose={() => setShowBlikWindow(false)}
+          onFinalize={handleFinalizePayment}
+        />
+      )}
+      {showProcessingWindow && (
+        <PaymentProcessingWindow 
+          onClose={() => setShowProcessingWindow(false)}
+          onFinalize={handleFinalizePayment}
+          paymentMethod={selectedPaymentMethod}
         />
       )}
     </Page>

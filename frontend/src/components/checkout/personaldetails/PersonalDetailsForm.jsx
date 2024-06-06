@@ -25,7 +25,7 @@ const PersonalDetailsForm = ({ errors }) => {
         </div>
         <div>
           <label htmlFor="phone-number">Phone number</label>
-          <input id="phone-number" />
+          <input id="phone-number" maxLength={9}/>
           {errors.phoneNumber && <p className="error">{errors.phoneNumber}</p>}
         </div>
       </div>
