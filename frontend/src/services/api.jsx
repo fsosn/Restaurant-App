@@ -72,16 +72,11 @@ const api = {
         }
     },
 
-    processTransaction: async (transactionData, token) => {
+    processTransaction: async (transactionData) => {
         try {
             const response = await axios.post(
                 `${API_ENDPOINTS.BASE_URL}${API_ENDPOINTS.API}${API_ENDPOINTS.TRANSACTION}`,
-                transactionData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
+                transactionData
             );
 
             handleErrors(response);

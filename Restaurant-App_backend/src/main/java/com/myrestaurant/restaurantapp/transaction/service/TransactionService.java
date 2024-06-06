@@ -20,9 +20,6 @@ public class TransactionService {
                 throw new IllegalArgumentException("ZIP code should be in format XX-XXX");
             }
         }
-
-        System.out.println("Processing transaction for: " + transaction.getFirstName() + " " + transaction.getLastName());
-        System.out.println("Total cost: " + transaction.getTotalCost());
     }
 }
 
