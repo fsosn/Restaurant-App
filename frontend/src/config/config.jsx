@@ -7,6 +7,7 @@ export const API_ENDPOINTS = {
     CHANGE_PASSWORD: "/change-password",
     GET_ROLE: "/get-role",
     ORDERS: "/orders",
+    PRODUCTS: "/products",
     USER: "/user",
     TRANSACTION: "/transaction",
     ACCOUNT_DETAILS: "/account-details"

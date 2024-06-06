@@ -3,7 +3,7 @@ import Page from "./template/Page.jsx";
 import ProductsTable from "../components/productsTable/ProductsTable.jsx";
 import api from "../services/api.jsx";
 
-const ProductsPage = () => {
+const ProductsPage = ({ toggleCartVisibility, cartItems, isCartVisible, updateCartItems }) => {
     const [products, setProducts] = useState([]);
 
     const fetchData = async () => {
@@ -38,7 +38,7 @@ const ProductsPage = () => {
     };
 
     return (
-        <Page pageTitle={"PizzaPal"}>
+        <Page pageTitle={"PizzaPal"} toggleCartVisibility={toggleCartVisibility} cartItems={cartItems} isCartVisible={isCartVisible} updateCartItems={updateCartItems}>
             <ProductsTable products={products} onAdd={handleAddProduct} onEdit={handleEditProduct} onDelete={handleDeleteProduct}/>
         </Page>
     );

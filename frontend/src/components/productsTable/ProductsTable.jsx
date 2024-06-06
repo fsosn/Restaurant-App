@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import "./ProductsTable.css";
 import PropTypes from "prop-types";
-import api from "../../services/api.jsx"; 
+import api from "../../services/api.jsx";
 
 const ProductsTable = ({ products, onAdd, onEdit, onDelete }) => {
   const [showForm, setShowForm] = useState(false);
@@ -65,7 +65,7 @@ const ProductsTable = ({ products, onAdd, onEdit, onDelete }) => {
     try {
       await api.deleteProduct(productID);
       onDelete(productID);
-
+      
     } catch (error) {
       console.error("Error deleting product:", error);
     }
@@ -76,47 +76,61 @@ const ProductsTable = ({ products, onAdd, onEdit, onDelete }) => {
       <button className="btn add-btn" onClick={() => setShowForm(true)}>
         <FontAwesomeIcon icon={faAdd} /> Add Product
       </button>
-
+      
       {showForm && (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            value={newProduct.name}
-            onChange={handleChange}
-            placeholder="Name"
-            required
-          />
-          <input
-            type="text"
-            name="description"
-            value={newProduct.description}
-            onChange={handleChange}
-            placeholder="Description"
-            required
-          />
-          <input
-            type="number"
-            name="price"
-            value={newProduct.price}
-            onChange={handleChange}
-            placeholder="Price"
-            required
-          />
-          <input
-            type="number"
-            name="calories"
-            value={newProduct.calories}
-            onChange={handleChange}
-            placeholder="Calories"
-            required
-          />
-          <button type="submit" className="btn btn-success">
+        <form onSubmit={handleSubmit} className="form-font">
+          <div className="form-group">
+            <input
+              type="text"
+              name="name"
+              value={newProduct.name}
+              onChange={handleChange}
+              className="form-control mb-3 mx-2"
+              placeholder="Name"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              name="description"
+              value={newProduct.description}
+              onChange={handleChange}
+              className="form-control mb-3 mx-2"
+              placeholder="Description"
+              required
+            />
+          </div>
+          <div className="form-group row">
+            <div className="col-sm-6">
+              <input
+                type="number"
+                name="price"
+                value={newProduct.price}
+                onChange={handleChange}
+                className="form-control mx-2"
+                placeholder="Price"
+                required
+              />
+            </div>
+            <div className="col-sm-6">
+              <input
+                type="number"
+                name="calories"
+                value={newProduct.calories}
+                onChange={handleChange}
+                className="form-control mx-2"
+                placeholder="Calories"
+                required
+              />
+            </div>
+          </div>
+          <button type="submit" className="btn add-btn">
             Add
           </button>
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-danger"
             onClick={() => setShowForm(false)}
           >
             Cancel
@@ -162,45 +176,51 @@ const ProductsTable = ({ products, onAdd, onEdit, onDelete }) => {
 
       {editedProduct && (
         <div>
-          <h2>Edit Product</h2>
-          <form onSubmit={handleFormSubmit}>
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={editedProduct.name}
-              onChange={handleFormChange}
-            />
-
-            <label htmlFor="description">Description:</label>
-            <input
-              type="text"
-              id="description"
-              name="description"
-              value={editedProduct.description}
-              onChange={handleFormChange}
-            />
-
-            <label htmlFor="price">Price:</label>
-            <input
-              type="number"
-              id="price"
-              name="price"
-              value={editedProduct.price}
-              onChange={handleFormChange}
-            />
-
-            <label htmlFor="calories">Calories:</label>
-            <input
-              type="number"
-              id="calories"
-              name="calories"
-              value={editedProduct.calories}
-              onChange={handleFormChange}
-            />
-
-            <button type="submit">Save Changes</button>
+          <h2 className="edit-prod">Edit Product</h2>
+          <form onSubmit={handleFormSubmit} className="form-font">
+            <div className="form-group">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="form-control mb-3 mx-2"
+                value={editedProduct.name}
+                onChange={handleFormChange}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                id="description"
+                name="description"
+                className="form-control mb-3 mx-2"
+                value={editedProduct.description}
+                onChange={handleFormChange}
+              />
+            </div>
+            <div className="form-group row">
+              <div className="col-sm-6">
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  className="form-control mx-2"
+                  value={editedProduct.price}
+                  onChange={handleFormChange}
+                />
+              </div>
+              <div className="col-sm-6">
+                <input
+                  type="number"
+                  id="calories"
+                  name="calories"
+                  className="form-control mx-2"
+                  value={editedProduct.calories}
+                  onChange={handleFormChange}
+                />
+              </div>
+            </div>
+            <button type="submit" className="btn add-btn">Save Changes</button>
           </form>
         </div>
       )}

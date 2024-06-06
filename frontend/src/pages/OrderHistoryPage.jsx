@@ -5,7 +5,7 @@ import api from '../services/api.jsx';
 import Header from '../components/header/Header.jsx';
 import { AuthContext } from "../auth/AuthContext.jsx";
 
-const OrderHistoryPage = () => {
+const OrderHistoryPage = ({ toggleCartVisibility, cartItems, isCartVisible, updateCartItems }) => {
     const auth = useContext(AuthContext);
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -36,8 +36,8 @@ const OrderHistoryPage = () => {
     }, [auth.role, auth.userId]);
 
     return (
-        <Page pageTitle="Order History">
-            <Header title="MarioLuigi" />
+        <Page pageTitle="Order History" cartItems={cartItems} isCartVisible={isCartVisible} updateCartItems={updateCartItems}>
+            <Header title="MarioLuigi" toggleCartVisibility={toggleCartVisibility}/>
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
             {!loading && !error && <OrderHistory orders={orders} />}
