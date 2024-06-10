@@ -54,14 +54,14 @@
 .pizza-name {
     font-weight: 600;
     font-size: 20px;
-    font-family: "Lato", sans-serif;
+    font-family: 'Lato', sans-serif;
     margin-bottom: 8px;
 }
 
 .price {
     font-size: 18px;
     color: var(--secondary-darker);
-    font-family: "Lato", sans-serif;
+    font-family: 'Lato', sans-serif;
     margin: 0;
     position: absolute;
     top: 10%;
@@ -93,4 +93,63 @@
     display: flex;
     justify-content: center;
     padding-bottom: 32px;
+}
+
+.dialog {
+    position: fixed;
+    background-color: #feefe0;
+    width: 600px;
+    height: 600px;
+    left: calc(50% - 300px);
+    top: calc(50% - 300px);
+    border-radius: 20px;
+    padding: 50px;
+    z-index: 999;
+    border: 1px solid var(--secondary-normal)
+}
+
+.dialog .image-container img {
+    width: 200px;
+}
+
+.dialog .pizza-name {
+    font-size: 32px;
+    margin-bottom: 0;
+}
+
+.dialog .pizza-description {
+    font-size: 16px;
+    font-style: italic;
+}
+
+.dialog h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.dialog pizza-ingredients {
+    font-size: 16px;
+}
+
+.dialog-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+}
+
+.dialog .price {
+    position: relative;
+    font-size: 36px;
+}
+
+.dialog .btn-add {
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+}
+
+.dialog .btn-add img {
+    width: 32px;
 }
